@@ -23,7 +23,7 @@ const render = async (root, state) => {
 };
 
 const App = state => {
-  changeName();
+  //   changeName();
   return `
     <header>
         <div class="">
@@ -35,14 +35,16 @@ const App = state => {
     </header>
     <main>
         <section>
-            <form class="" onsubmit="return Client.handleSubmit(event)">
+            <form class="">
                 <input id="name" type="text" name="input" value="" placeholder="Name">
-                <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
-                    onsubmit="return Client.handleSubmit(event)">
+                <button  onclick="changeName()">
+                click</button>
             </form>
         </section>
 
         <section>
+        <button  onclick='Client.changeName()'>
+                click</button>
             <strong>Form Results:</strong>
             <div id="results"></div>
         </section>
@@ -56,6 +58,7 @@ const App = state => {
 };
 
 const changeName = () => {
+  console.log("chenged");
   updateStore(store, { name: "sami" });
 };
 
@@ -63,4 +66,4 @@ window.addEventListener("load", () => {
   render(root, store);
 });
 
-export { checkForName, handleSubmit };
+export { checkForName, handleSubmit, changeName };
