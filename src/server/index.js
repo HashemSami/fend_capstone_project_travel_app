@@ -36,12 +36,11 @@ app.post("/analysis", async (req, res) => {
 
   let apiRes;
 
-  if (body.url) {
-    validateURL(body.url);
-    apiRes = await apiCall((url = body.url));
+  if (body.url && validateURL(body.url)) {
+    apiRes = await apiCall(null, body.url);
   }
   if (body.text) {
-    apiRes = await apiCall((text = body.text));
+    apiRes = await apiCall(body.text);
   }
 
   res.send(apiRes);
