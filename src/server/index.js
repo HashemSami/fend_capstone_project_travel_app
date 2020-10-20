@@ -34,23 +34,25 @@ app.post("/analysis", async (req, res) => {
   try {
     const body = req.body;
     console.log(body);
+    const message = "Invalid URL, please make sure you type the right URL";
 
     let apiRes;
     const validURL = validateURL(body.url);
 
     if (body.url && validURL) {
       apiRes = await apiCall(null, body.url);
-      if (apiRes.status.code == "212") throw "Invalid URL";
+      if (apiRes.status.code == "212") throw { err: message };
     } else {
       if (body.text) {
         apiRes = await apiCall(body.text);
       } else {
-        throw "Invalid URL";
+        throw { err: message };
       }
     }
     res.send(apiRes);
   } catch (e) {
-    res.status(500).send(e);
+    // if(e === "Invalid URL")
+    res.send(e);
   }
 });
 

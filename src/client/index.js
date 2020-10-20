@@ -1,5 +1,7 @@
 import { checkForName } from "./js/nameChecker";
 import { handleSubmit } from "./js/formHandler";
+import { formComponent } from "./js/formComponent";
+import { resultComponent } from "./js/resultComponent";
 import "./styles/resets.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
@@ -8,10 +10,10 @@ import "./styles/header.scss";
 
 const store = {
   name: "hash",
-  values: {
-    text: "",
-    url: ""
-  }
+  text: "",
+  url: "",
+  note: "",
+  analysis: {},
 };
 
 // add our markup to the page
@@ -26,7 +28,8 @@ const render = async (root, state) => {
   root.innerHTML = App(state);
 };
 
-const App = state => {
+const App = (state) => {
+  const { url, text, note, analysis } = state;
   //   changeName();
   return `
     <header>
@@ -38,13 +41,8 @@ const App = state => {
         </div>
     </header>
     <main>
-        <section>
-            <form id="usrform">
-                <input type="text" id="url" form="usrform" placeholder="Enter a URL">
-                <textarea rows="4" cols="50" id="text" form="usrform" placeholder="Try your own text..."></textarea>
-                <button  onclick="Client.changeName()">click</button>
-            </form>
-        </section>
+      ${formComponent(url, text, note)}
+      ${resultComponent(analysis)}
 
         <section>
         <button  onclick='Client.changeName()'>
@@ -61,17 +59,55 @@ const App = state => {
   `;
 };
 
+// componenets
+
 const changeName = async () => {
   console.log("chenged");
-  let values = {};
-  const formElement = document.getElementById("usrform");
   const text = document.getElementById("text").value;
   const url = document.getElementById("url").value;
+  const note = document.getElementById("note");
+
+  if ((text && url) || (!text && !url)) {
+    updateStore(store, {
+      text: text,
+      url: url,
+      note: "Please fill only <stronge>ONE</stronge> of the inputs provided...",
+    });
+    console.log(store);
+    return;
+  }
+
   updateStore(store, {
     text: text,
-    url: url
+    url: url,
+    note: "Done..",
   });
+
+  const analysis = await fetchAnalysis();
+
+  if (analysis.err) {
+    updateStore(store, {
+      note: `${analysis.err}`,
+    });
+  }
   console.log(store);
+};
+
+const fetchAnalysis = async () => {
+  const res = await fetch("http://localhost:8081/analysis", {
+    method: "POST", // or 'PUT'
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: store.text,
+      url: store.url,
+    }),
+  });
+  const analysis = await res.json();
+  console.log(analysis);
+  updateStore(store, { analysis: analysis });
+  return analysis;
 };
 
 window.addEventListener("load", () => {
