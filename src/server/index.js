@@ -31,19 +31,27 @@ app.get("/test", function (req, res) {
 });
 
 app.post("/analysis", async (req, res) => {
-  const body = req.body;
-  console.log(body);
+  try {
+    const body = req.body;
+    console.log(body);
 
-  let apiRes;
+    let apiRes;
+    const validURL = validateURL(body.url);
 
-  if (body.url && validateURL(body.url)) {
-    apiRes = await apiCall(null, body.url);
+    if (body.url && validURL) {
+      apiRes = await apiCall(null, body.url);
+      if (apiRes.status.code == "212") throw "Invalid URL";
+    } else {
+      if (body.text) {
+        apiRes = await apiCall(body.text);
+      } else {
+        throw "Invalid URL";
+      }
+    }
+    res.send(apiRes);
+  } catch (e) {
+    res.status(500).send(e);
   }
-  if (body.text) {
-    apiRes = await apiCall(body.text);
-  }
-
-  res.send(apiRes);
 });
 
 const port = 8081;

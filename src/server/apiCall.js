@@ -1,9 +1,9 @@
 const fetch = require("node-fetch");
 
 module.exports.apiCall = async (text = null, url = null) => {
-  const model = "general_ca";
+  const model = "general";
   const apiKey = process.env.API_KEY;
-  const apiurl = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&of=json&lang=en&${text ? `txt=${text}` : `url=${url}`}&model=${model}`;
+  const apiurl = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&of=json&lang=en&${text ? `txt=${text}&txtf=plain` : `url=${url}`}&model=${model}`;
 
   console.log(apiurl);
 
