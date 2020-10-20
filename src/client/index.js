@@ -7,7 +7,11 @@ import "./styles/form.scss";
 import "./styles/header.scss";
 
 const store = {
-  name: "hash"
+  name: "hash",
+  values: {
+    text: "",
+    url: ""
+  }
 };
 
 // add our markup to the page
@@ -35,10 +39,10 @@ const App = state => {
     </header>
     <main>
         <section>
-            <form class="">
-                <input id="name" type="text" name="input" value="" placeholder="Name">
-                <button  onclick="changeName()">
-                click</button>
+            <form id="usrform">
+                <input type="text" id="url" form="usrform" placeholder="Enter a URL">
+                <textarea rows="4" cols="50" id="text" form="usrform" placeholder="Try your own text..."></textarea>
+                <button  onclick="Client.changeName()">click</button>
             </form>
         </section>
 
@@ -57,9 +61,17 @@ const App = state => {
   `;
 };
 
-const changeName = () => {
+const changeName = async () => {
   console.log("chenged");
-  updateStore(store, { name: "sami" });
+  let values = {};
+  const formElement = document.getElementById("usrform");
+  const text = document.getElementById("text").value;
+  const url = document.getElementById("url").value;
+  updateStore(store, {
+    text: text,
+    url: url
+  });
+  console.log(store);
 };
 
 window.addEventListener("load", () => {
