@@ -2,14 +2,15 @@ import { checkForName } from "./js/nameChecker";
 import { handleSubmit } from "./js/formHandler";
 import { formComponent } from "./js/formComponent";
 import { resultComponent } from "./js/resultComponent";
-import "./styles/resets.scss";
+import { headerComponent } from "./js/headerComponent";
+// import "./styles/index.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
-import "./styles/form.scss";
 import "./styles/header.scss";
+import "./styles/result.scss";
+import "./styles/form.scss";
 
 const store = {
-  name: "hash",
   text: "",
   url: "",
   note: "",
@@ -32,30 +33,19 @@ const App = (state) => {
   const { url, text, note, analysis } = state;
   //   changeName();
   return `
-    <header>
-        <div class="">
-            Logo
-        </div>
-        <div class="">
-            navigation
-        </div>
+  <div id="container">
+    <header id="head">
+      ${headerComponent()}
     </header>
     <main>
       ${formComponent(url, text, note)}
       ${resultComponent(analysis)}
-
-        <section>
-        <button  onclick='Client.changeName()'>
-                click</button>
-            <strong>Form Results:</strong>
-            <div id="results"></div>
-        </section>
     </main>
 
-    <footer>
+    <footer id="footer">
     <p>This is a footer</p>
-    the name is ${state.name}
     </footer>
+  </div>
   `;
 };
 
@@ -65,13 +55,12 @@ const changeName = async () => {
   console.log("chenged");
   const text = document.getElementById("text").value;
   const url = document.getElementById("url").value;
-  const note = document.getElementById("note");
 
   if ((text && url) || (!text && !url)) {
     updateStore(store, {
       text: text,
       url: url,
-      note: "Please fill only <stronge>ONE</stronge> of the inputs provided...",
+      note: "Please fill only <strong>ONE</strong> of the inputs provided...",
     });
     console.log(store);
     return;
@@ -80,7 +69,7 @@ const changeName = async () => {
   updateStore(store, {
     text: text,
     url: url,
-    note: "Done..",
+    note: "Analyzing...",
   });
 
   const analysis = await fetchAnalysis();
@@ -106,7 +95,10 @@ const fetchAnalysis = async () => {
   });
   const analysis = await res.json();
   console.log(analysis);
-  updateStore(store, { analysis: analysis });
+  updateStore(store, {
+    note: "Done. Please check the results below.",
+    analysis: analysis,
+  });
   return analysis;
 };
 

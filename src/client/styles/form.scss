@@ -1,12 +1,43 @@
-form {
-    border: 1px solid #545454;
-    border-radius: 3px;
-    padding: 40px;
-}
+#usrform {
+  grid-area: form;
+  width: 100%;
 
-input {
-    padding: 5px 20px;
-    width: 100%;
-    line-height: 16px;
-    margin: 10px 0;
+  #note {
+    color: red;
+    padding: 10px 0;
+  }
+
+  form {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "url"
+      "textarea"
+      "submit";
+    // border: 1px solid #545454;
+    border-radius: 3px;
+    padding: 0 20px;
+    // justify-content: center;
+
+    input {
+      grid-area: url;
+      padding: 5px 20px;
+      line-height: 16px;
+      margin: 10px 0;
+      font-size: 0.8em;
+    }
+
+    textarea {
+      grid-area: textarea;
+      margin: 10px 0;
+      font-size: 0.8em;
+    }
+
+    button {
+      grid-area: submit;
+      margin: 10px 0;
+      width: 15%;
+      padding: 10px;
+    }
+  }
 }
