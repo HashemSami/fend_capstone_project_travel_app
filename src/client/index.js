@@ -1,17 +1,17 @@
-import { checkForName } from "./js/nameChecker";
-import { handleSubmit } from "./js/formHandler";
-import "./styles/resets.scss";
+import { formComponent } from "./js/formComponent";
+import { resultComponent } from "./js/resultComponent";
+import { headerComponent } from "./js/headerComponent";
 import "./styles/base.scss";
 import "./styles/footer.scss";
-import "./styles/form.scss";
 import "./styles/header.scss";
+import "./styles/result.scss";
+import "./styles/form.scss";
 
 const store = {
-  name: "hash",
-  values: {
-    text: "",
-    url: ""
-  }
+  text: "",
+  url: "",
+  note: "",
+  analysis: {},
 };
 
 // add our markup to the page
@@ -26,56 +26,77 @@ const render = async (root, state) => {
   root.innerHTML = App(state);
 };
 
-const App = state => {
+const App = (state) => {
+  const { url, text, note, analysis } = state;
   //   changeName();
   return `
-    <header>
-        <div class="">
-            Logo
-        </div>
-        <div class="">
-            navigation
-        </div>
+  <div id="container">
+    <header id="head">
+      ${headerComponent()}
     </header>
     <main>
-        <section>
-            <form id="usrform">
-                <input type="text" id="url" form="usrform" placeholder="Enter a URL">
-                <textarea rows="4" cols="50" id="text" form="usrform" placeholder="Try your own text..."></textarea>
-                <button  onclick="Client.changeName()">click</button>
-            </form>
-        </section>
-
-        <section>
-        <button  onclick='Client.changeName()'>
-                click</button>
-            <strong>Form Results:</strong>
-            <div id="results"></div>
-        </section>
+      ${formComponent(url, text, note)}
+      ${resultComponent(analysis)}
     </main>
 
-    <footer>
+    <footer id="footer">
     <p>This is a footer</p>
-    the name is ${state.name}
     </footer>
+  </div>
   `;
 };
 
-const changeName = async () => {
-  console.log("chenged");
-  let values = {};
-  const formElement = document.getElementById("usrform");
+// componenets
+
+const handleForm = async () => {
   const text = document.getElementById("text").value;
   const url = document.getElementById("url").value;
+
+  if ((text && url) || (!text && !url)) {
+    updateStore(store, {
+      text: text,
+      url: url,
+      note: "Please fill only <strong>ONE</strong> of the inputs provided...",
+    });
+    return;
+  }
+
   updateStore(store, {
     text: text,
-    url: url
+    url: url,
+    note: "Analyzing...",
   });
-  console.log(store);
+
+  const analysis = await fetchAnalysis();
+
+  if (analysis.err) {
+    updateStore(store, {
+      note: `${analysis.err}`,
+    });
+  }
+};
+
+const fetchAnalysis = async () => {
+  const res = await fetch("http://localhost:8081/analysis", {
+    method: "POST", // or 'PUT'
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: store.text,
+      url: store.url,
+    }),
+  });
+  const analysis = await res.json();
+  updateStore(store, {
+    note: "Done. Please check the results below.",
+    analysis: analysis,
+  });
+  return analysis;
 };
 
 window.addEventListener("load", () => {
   render(root, store);
 });
 
-export { checkForName, handleSubmit, changeName };
+export { handleForm };

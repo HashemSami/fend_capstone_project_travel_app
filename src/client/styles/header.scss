@@ -1,5 +1,13 @@
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
+#head {
+  grid-area: head;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+
+  #title {
+    font-weight: bold;
+  }
 }

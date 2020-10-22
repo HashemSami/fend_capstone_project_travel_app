@@ -1,0 +1,10 @@
+main {
+  border: 3px solid black;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "form"
+    "result";
+  row-gap: 15px;
+  grid-area: main;
+}
