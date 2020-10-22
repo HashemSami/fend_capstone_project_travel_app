@@ -1,6 +1,5 @@
 var path = require("path");
 const express = require("express");
-const mockAPIResponse = require("./mockAPI.js");
 const { apiCall, validateURL } = require("./apiCall");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -23,10 +22,6 @@ console.log(__dirname);
 app.get("/", function (req, res) {
   // res.sendFile('dist/index.html')
   res.sendFile("dist/index.html");
-});
-
-app.get("/test", function (req, res) {
-  res.send(mockAPIResponse);
 });
 
 app.post("/analysis", async (req, res) => {
