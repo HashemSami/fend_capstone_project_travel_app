@@ -1,4 +1,4 @@
-# Weather-Journal App Project
+# Evaluate a news article with Natural Language Processing Project
 
 ## Generel info
 
