@@ -1,5 +1,6 @@
 #result {
   grid-area: result;
+  font-size: 0.8em;
 
   #overall {
     border: 3px solid black;
@@ -17,6 +18,7 @@
   }
 
   table {
+    width: 100%;
     margin: 10px 0px;
     border: 3px solid black;
     background-color: snow;

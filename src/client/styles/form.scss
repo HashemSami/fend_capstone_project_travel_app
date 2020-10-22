@@ -1,3 +1,5 @@
+@import "variables";
+
 #usrform {
   grid-area: form;
   width: 100%;
@@ -20,6 +22,7 @@
     // justify-content: center;
 
     input {
+      @include box;
       grid-area: url;
       padding: 5px 20px;
       line-height: 16px;
@@ -28,12 +31,17 @@
     }
 
     textarea {
+      @include box;
       grid-area: textarea;
       margin: 10px 0;
       font-size: 0.8em;
     }
 
     button {
+      @include box;
+      font-size: 1em;
+      background-color: blue;
+      color: snow;
       grid-area: submit;
       margin: 10px 0;
       width: 15%;
