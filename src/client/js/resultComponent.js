@@ -1,6 +1,6 @@
 const resultComponent = (analysis) => {
   if (analysis.err || Object.keys(analysis).length === 0) {
-    return "<p>no</p>";
+    return "<p></p>";
   }
   const {
     confidence,
@@ -30,6 +30,7 @@ const resultComponent = (analysis) => {
   return `
     <section id="result">
     <div id="overall">
+    <h4>Overall analysis</h4>
     <p>Confidence: <span>${confidence}%</span></p>
     <p>Irony: <span>${irony}</span></p>
     <p>Overall polarity of the text : <span>${polarity(score_tag)}</span> </P>
@@ -41,7 +42,7 @@ const resultComponent = (analysis) => {
     }</span></p>
     </div>
     <table>
-    <tr>
+    <tr id="table-head">
     <th>Sentence / Word detected</th>
     <th>Beginning of the paragraph</th>
     <th>Confidence</th>

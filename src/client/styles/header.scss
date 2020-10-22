@@ -7,11 +7,7 @@
   align-items: center;
   font-size: 1em;
 
-  #ref {
-    // display: flex;
-    // flex-direction: row;
-    display: block;
-    justify-content: end;
-    align-items: flex-end;
+  #title {
+    font-weight: bold;
   }
 }

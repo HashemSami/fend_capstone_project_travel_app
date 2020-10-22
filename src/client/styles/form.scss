@@ -24,27 +24,20 @@
     input {
       @include box;
       grid-area: url;
-      padding: 5px 20px;
-      line-height: 16px;
-      margin: 10px 0;
-      font-size: 0.8em;
     }
 
     textarea {
       @include box;
       grid-area: textarea;
-      margin: 10px 0;
-      font-size: 0.8em;
     }
 
     button {
       @include box;
+      grid-area: submit;
       font-size: 1em;
       background-color: blue;
       color: snow;
-      grid-area: submit;
-      margin: 10px 0;
-      width: 15%;
+      width: 5em;
       padding: 10px;
     }
   }

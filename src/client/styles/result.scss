@@ -6,6 +6,11 @@
     border: 3px solid black;
     margin: 10px 0px;
     background-color: snow;
+    h4 {
+      background-color: wheat;
+      margin: 0;
+      padding: 10px;
+    }
     p {
       padding: 10px;
       border-top: 1px solid black;
@@ -34,6 +39,10 @@
       border-right: 1px solid black;
       text-align: left;
       padding: 8px;
+    }
+
+    td {
+      border-top: 1px solid black;
     }
 
     tr:nth-child(even) {

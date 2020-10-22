@@ -1,9 +1,6 @@
-import { checkForName } from "./js/nameChecker";
-import { handleSubmit } from "./js/formHandler";
 import { formComponent } from "./js/formComponent";
 import { resultComponent } from "./js/resultComponent";
 import { headerComponent } from "./js/headerComponent";
-// import "./styles/index.scss";
 import "./styles/base.scss";
 import "./styles/footer.scss";
 import "./styles/header.scss";
@@ -51,8 +48,7 @@ const App = (state) => {
 
 // componenets
 
-const changeName = async () => {
-  console.log("chenged");
+const handleForm = async () => {
   const text = document.getElementById("text").value;
   const url = document.getElementById("url").value;
 
@@ -62,7 +58,6 @@ const changeName = async () => {
       url: url,
       note: "Please fill only <strong>ONE</strong> of the inputs provided...",
     });
-    console.log(store);
     return;
   }
 
@@ -79,7 +74,6 @@ const changeName = async () => {
       note: `${analysis.err}`,
     });
   }
-  console.log(store);
 };
 
 const fetchAnalysis = async () => {
@@ -94,7 +88,6 @@ const fetchAnalysis = async () => {
     }),
   });
   const analysis = await res.json();
-  console.log(analysis);
   updateStore(store, {
     note: "Done. Please check the results below.",
     analysis: analysis,
@@ -106,4 +99,4 @@ window.addEventListener("load", () => {
   render(root, store);
 });
 
-export { checkForName, handleSubmit, changeName };
+export { handleForm };

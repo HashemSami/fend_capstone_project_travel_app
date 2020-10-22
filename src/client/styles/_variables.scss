@@ -2,4 +2,9 @@ $breakpoint: 900px;
 
 @mixin box {
   border: 3px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  line-height: 16px;
+  margin: 10px 0;
+  font-size: 0.8em;
 }

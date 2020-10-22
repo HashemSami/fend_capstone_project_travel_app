@@ -15,7 +15,6 @@ app.use(cors());
 
 //Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require("body-parser");
-const { send } = require("process");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -33,7 +32,6 @@ app.get("/test", function (req, res) {
 app.post("/analysis", async (req, res) => {
   try {
     const body = req.body;
-    console.log(body);
     const message = "Invalid URL, please make sure you type the right URL";
 
     let apiRes;
@@ -51,7 +49,6 @@ app.post("/analysis", async (req, res) => {
     }
     res.send(apiRes);
   } catch (e) {
-    // if(e === "Invalid URL")
     res.send(e);
   }
 });
