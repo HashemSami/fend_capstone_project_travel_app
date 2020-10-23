@@ -29,6 +29,7 @@ The goal of this project is to practice with:
 - nodejs
 - Webpack
 - Sass
+- Jest
 
 ## Setup
 
