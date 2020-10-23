@@ -44,3 +44,8 @@ The goal of this project is to practice with:
   ```
 - run `npm run build-prod` to create the production folders.
 - open your browser on localhost:8001 to see the app running.
+
+  ### run the app for development and testing:
+
+  - run `npm run build-dev` to initiate the webpack server for development work.
+  - run `npm run test` to start testing the test files located in the `__test__` folder.

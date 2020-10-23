@@ -1,20 +1,15 @@
-import { formComponent } from "formComponent";
+import { headerComponent } from "headerComponent";
 
-describe("App", () => {
-  it("should be able to run tests", () => {
-    const url = "url";
-    const text = "text";
-    const note = "note";
-
+describe("headerComponent", () => {
+  it("should be able to output header UI", () => {
+    // const myMock = headerComponent();
     const result = `
-  <section id="usrform">
-    <form>
-        <input type="text" value="${url}" id="url" form="usrform" placeholder="Enter a page URL to analyze it's text">
-        <textarea rows="6" cols="40" id="text" form="usrform" placeholder="Try your own text...">${text}</textarea>
-        <button type="button" onclick="Client.handleForm()">Analyze</button>
-    </form>
-    <div id="note">${note}</div>
-</section>`;
-    expect(formComponent(url, text, note)).toBe(result);
+  <div id="title">
+        Sentiment Analysis
+  </div>
+  <div id="ref">
+      <a href="https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/what-is-sentiment-analysis">API documentation</a>
+  </div>`;
+    expect(headerComponent()).toBe(result);
   });
 });

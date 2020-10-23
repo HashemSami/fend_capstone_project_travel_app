@@ -1,7 +1,7 @@
 import { formComponent } from "formComponent";
 
-describe("App", () => {
-  it("should be able to run tests", () => {
+describe("formComponent", () => {
+  it("should be able to output form UI", () => {
     const url = "url";
     const text = "text";
     const note = "note";
