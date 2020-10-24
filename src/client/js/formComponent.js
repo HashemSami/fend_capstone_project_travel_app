@@ -2,9 +2,15 @@ const formComponent = (url, text, note) => {
   return `
   <section id="usrform">
     <form>
-        <input type="text" value="${url}" id="url" form="usrform" placeholder="Enter a page URL to analyze it's text">
-        <textarea rows="6" cols="40" id="text" form="usrform" placeholder="Try your own text...">${text}</textarea>
-        <button type="button" onclick="Client.handleForm()">Analyze</button>
+      <div id="travel-location">
+        <label for="location">Traveling to:</label>
+        <input type="text" value="${url}" id="location" form="usrform" placeholder="Enter location"/>
+      </div>
+      <div id="travel-date">
+        <label for="date">Traveling date:</label>
+        <input type="date" value="" id="date" form="usrform" placeholder="date"/>
+      </div>
+        <button type="button" onclick="Client.handleForm()">Check weather</button>
     </form>
     <div id="note">${note}</div>
 </section>`;

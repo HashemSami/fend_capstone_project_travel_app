@@ -1,6 +1,10 @@
 const resultComponent = (analysis) => {
   if (analysis.err || Object.keys(analysis).length === 0) {
-    return "<p></p>";
+    return `
+    <section id="result">
+    <div id="photo"><p>photo</P></div>
+    <div id="info"><p>info</P></div>
+    <section/>`;
   }
   const {
     confidence,

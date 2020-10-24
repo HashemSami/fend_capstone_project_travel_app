@@ -6,6 +6,7 @@ import "./styles/footer.scss";
 import "./styles/header.scss";
 import "./styles/result.scss";
 import "./styles/form.scss";
+import "./styles/main.scss";
 
 const store = {
   text: "",

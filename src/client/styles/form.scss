@@ -2,7 +2,9 @@
 
 #usrform {
   grid-area: form;
-  width: 100%;
+  background-color: $form-color;
+  // width: 100%;
+  @include box;
 
   #note {
     color: red;
@@ -21,14 +23,22 @@
     padding: 0 20px;
     // justify-content: center;
 
-    input {
-      @include box;
+    #travel-location {
       grid-area: url;
+      display: flex;
+      flex-direction: column;
+      #location {
+        @include box;
+      }
     }
 
-    textarea {
-      @include box;
+    #travel-date {
       grid-area: textarea;
+      display: flex;
+      flex-direction: column;
+      #date {
+        @include box;
+      }
     }
 
     button {
@@ -37,7 +47,7 @@
       font-size: 1em;
       background-color: blue;
       color: snow;
-      width: 5em;
+      width: 10em;
       padding: 10px;
     }
   }
