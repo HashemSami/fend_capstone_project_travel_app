@@ -1,6 +1,33 @@
+@import "variables";
+
 #result {
   grid-area: result;
   font-size: 0.8em;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "photo"
+    "info";
+  grid-gap: 10px;
+  justify-content: center;
+  grid-auto-rows: minmax(100px, auto);
+  border-top: 2px solid black;
+
+  #photo {
+    grid-area: photo;
+  }
+
+  #info {
+    grid-area: info;
+  }
+
+  @media (min-width: $breakpoint) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "photo info";
+    grid-gap: 10px;
+    justify-content: center;
+    border-top: none;
+  }
 
   #overall {
     border: 3px solid black;
