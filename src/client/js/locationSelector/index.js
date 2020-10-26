@@ -31,20 +31,11 @@ export const selectCountry = (regions) => {
     return false;
   }
 
-  const countriesArray = countries[selectedRegion].split("|");
-
-  const optionsArray = countriesArray.map((country) => {
-    return `<option value="${country}">${country}</option>`;
-  });
-  // console.log(optionsArray);
-  // printCountryOptions(optionsArray)
   updateStore({
-    // countriesOptions: optionsArray,
     selectedRegion: selectedRegion,
     selectedCountry: null,
     selectedCity: null,
   });
-  // return optionsArray;
 };
 
 export const printCountries = (selectedRegion, selectedCountry) => {
@@ -78,18 +69,9 @@ export const selectCity = (countries) => {
     });
   }
 
-  const citiesArray = city_states[selectedCountry].split("|");
-
-  const optionsArray = citiesArray.map((city) => {
-    return `<option value="${city}">${city}</option>`;
-  });
-
   updateStore({
-    // citiesOptions: optionsArray,
     selectedCountry: selectedCountry,
   });
-
-  // return optionsArray;
 };
 
 export const setCity = (city) => {

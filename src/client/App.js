@@ -1,5 +1,5 @@
 import { updateStore } from "./store";
-import { formComponent, selectCountry } from "./js/formComponent";
+import { formComponent } from "./js/formComponent";
 import { resultComponent } from "./js/resultComponent";
 import { headerComponent } from "./js/headerComponent";
 
@@ -44,9 +44,9 @@ export const App = (state) => {
 
 // componenets
 
-export const handleForm = async () => {
-  console.log("clicked");
-};
+// export const handleForm = async () => {
+//   console.log("clicked");
+// };
 
 const fetchAnalysis = async () => {
   const res = await fetch("http://localhost:8081/analysis", {
