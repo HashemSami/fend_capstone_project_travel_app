@@ -3,8 +3,10 @@
 #usrform {
   grid-area: form;
   background-color: $form-color;
-  // width: 100%;
+  // width: 10em;
   @include box;
+  justify-content: center;
+  padding-top: 20px;
 
   #note {
     color: red;
@@ -13,31 +15,63 @@
 
   form {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto auto;
     grid-template-areas:
-      "url"
-      "textarea"
+      "location"
+      "date"
       "submit";
     // border: 1px solid #545454;
     border-radius: 3px;
     padding: 0 20px;
-    // justify-content: center;
+    justify-content: center;
 
     #travel-location {
-      grid-area: url;
-      display: flex;
-      flex-direction: column;
+      grid-area: location;
       #location {
-        @include box;
+        display: grid;
+        grid-template-rows: 1fr auto auto;
+        grid-template-columns: 15em;
+        grid-template-areas:
+          "region-input"
+          "country-input"
+          "city-input";
+        grid-auto-rows: minmax(100px, auto);
+        #region {
+          grid-area: region-input;
+          @include box;
+          &:invalid {
+            @include invalid-box;
+          }
+        }
+        #country {
+          grid-area: country-input;
+          @include box;
+          &:invalid {
+            @include invalid-box;
+          }
+        }
+        #city {
+          grid-area: city-input;
+          @include box;
+          &:invalid {
+            @include invalid-box;
+          }
+        }
+        // #location {
+        //   @include box;
+        // }
       }
     }
 
     #travel-date {
-      grid-area: textarea;
+      grid-area: date;
       display: flex;
       flex-direction: column;
       #date {
         @include box;
+        &:invalid {
+          @include invalid-box;
+        }
       }
     }
 
@@ -49,6 +83,10 @@
       color: snow;
       width: 10em;
       padding: 10px;
+
+      &:disabled {
+        background-color: rgb(121, 121, 255);
+      }
     }
   }
 }

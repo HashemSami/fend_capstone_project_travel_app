@@ -1,6 +1,10 @@
 $breakpoint: 900px;
 $form-color: rgb(241, 240, 180);
 
+@mixin invalid-box {
+  border: 3px solid red;
+}
+
 @mixin box {
   border: 3px solid black;
   border-radius: 5px;
