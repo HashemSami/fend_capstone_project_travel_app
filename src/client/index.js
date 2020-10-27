@@ -4,13 +4,14 @@ import "./styles/header.scss";
 import "./styles/result.scss";
 import "./styles/form.scss";
 import "./styles/main.scss";
-import { App, handleForm } from "./App";
+import { App } from "./App";
 import {
   selectRegion,
   selectCountry,
   selectCity,
   setCity,
 } from "./js/locationSelector";
+import { handleForm } from "./js/formComponent";
 
 const store = {
   regionsOptions: selectRegion(),

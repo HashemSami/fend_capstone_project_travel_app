@@ -24,7 +24,7 @@ app.get("/", function (req, res) {
   res.sendFile("dist/index.html");
 });
 
-app.post("/analysis", async (req, res) => {
+app.post("/get-geolocation", async (req, res) => {
   try {
     const body = req.body;
     const message = "Invalid URL, please make sure you type the right URL";
