@@ -1,8 +1,7 @@
 module.exports = {
   moduleFileExtensions: ["js", "jsx"],
   moduleNameMapper: {
-    formComponent: "<rootDir>/src/client/js/formComponent.js",
-    headerComponent: "<rootDir>/src/client/js/headerComponent.js",
-    resultComponent: "<rootDir>/src/client/js/resultComponent.js",
+    helperFunctions: "<rootDir>/src/client/js/helperFunctions.js",
+    server: "<rootDir>/src/server/index.js",
   },
 };

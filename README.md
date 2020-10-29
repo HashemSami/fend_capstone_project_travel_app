@@ -6,23 +6,23 @@ This project is for Udacity's front end nanodegree that requires you to build ou
 
 This project is using 3 external APIs, each one is reliant on another to make the app work. As one API will be required to get data from another API.
 
-You can use the form to enter the location you are traveling to and the date you are leaving, and you will get a predicted weather forecast.
+You can use the form to enter the location you are traveling to and the date you are leaving, then you will get a predicted weather forecast.
 
 The APIs used are:
 
 - [Weatherbit](https://www.weatherbit.io/api) API, it takes in coordinates to provide weather data.
 - to get these coordinates, [Geonames](http://www.geonames.org/export/web-services.html) API was used.
-- Then, an image of the location will be displayed for the user using [pixabay](https://pixabay.com/api/docs/) API.
+- Once all of this data obtained, an image of the location will be displayed for the user using [pixabay](https://pixabay.com/api/docs/) API.
 
 This is all going to be done in a Webpack environment, using an express server, and wrapped up with service workers.
 
-Features in the app:
+#### Features in the app:
 
 - Allow the user to add additional trips that will be displayed in a list sorted from the newest entry.
 - Incorporating [Weatherbit icons](https://www.weatherbit.io/api/codes) into forecast.
 - Pull in an image for the region from Pixabay API when the entered location brings up no results.
 
-The goal of this project is to practice with:
+#### The goal of this project is to practice with:
 
 - Setting up Webpack
 - Sass styles
@@ -57,10 +57,10 @@ The goal of this project is to practice with:
 - Install the dependencies by running `npm i` in your terminal.
 - You'll need to setup your own APIs to be able to use this project:
   ## Setting up APIs
-  -
   - First, you will need to go to [Weatherbit](https://www.weatherbit.io/api), [Geonames](http://www.geonames.org/export/web-services.html) and [pixabay](https://pixabay.com/api/docs/). Sign up to each one of them to get your API keys.
-  - Next you need to declare the API keys by saving it as an environment variable. Create a new `.env` file in the root of your project.
-  - Fill the .env file with your API keys like this:**Note: in `GEONAME_USERNAME` variable, add your user name that you sign up with**
+  - Next you need to declare the API keys by saving it as an environment variable. Create a new `.env` file in the root of the project.
+  - Fill the .env file with your API keys like this:
+    **Note: in `GEONAME_USERNAME` variable, you only need to add your user name that you sign up with**
   ```
    GEONAME_USERNAME=**************************
    WEATHERBIT_API_KEY=**************************
