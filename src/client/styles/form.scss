@@ -28,6 +28,7 @@
 
     #travel-location {
       grid-area: location;
+
       #location {
         display: grid;
         grid-template-rows: 1fr auto auto;
@@ -37,11 +38,15 @@
           "country-input"
           "city-input";
         grid-auto-rows: minmax(100px, auto);
+
         #region {
           grid-area: region-input;
           @include box;
           &:invalid {
             @include invalid-box;
+          }
+          &:hover {
+            border: 3px solid blue;
           }
         }
         #country {
@@ -50,6 +55,9 @@
           &:invalid {
             @include invalid-box;
           }
+          &:hover {
+            border: 3px solid blue;
+          }
         }
         #city {
           grid-area: city-input;
@@ -57,10 +65,10 @@
           &:invalid {
             @include invalid-box;
           }
+          &:hover {
+            border: 3px solid blue;
+          }
         }
-        // #location {
-        //   @include box;
-        // }
       }
     }
 
@@ -73,6 +81,9 @@
         &:invalid {
           @include invalid-box;
         }
+        &:hover {
+          border: 3px solid blue;
+        }
       }
     }
 
@@ -80,13 +91,18 @@
       @include box;
       grid-area: submit;
       font-size: 1em;
-      background-color: $dark-blue;
-      color: black;
+      background-color: snow;
+      color: blue;
       width: 10em;
       padding: 10px;
 
+      &:hover {
+        box-shadow: 5px 5px #888888;
+      }
+
       &:disabled {
         background-color: $button-unable;
+        box-shadow: none;
         color: snow;
       }
     }

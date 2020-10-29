@@ -2,21 +2,29 @@
 
 main {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
     "form"
+    "note"
     "result";
   row-gap: 15px;
   grid-area: main;
+  // width: 100%;
 
   @media (min-width: $breakpoint) {
     // margin: 20px 200px;
     font-size: 25px;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr auto;
     grid-template-areas:
+      "note note"
       "result form"
       "result .";
     row-gap: 15px;
+  }
+  #main-note {
+    grid-area: note;
+    margin: 0;
+    color: $dark-blue;
   }
 }

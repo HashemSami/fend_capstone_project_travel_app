@@ -1,4 +1,10 @@
-import { selectRegion, selectCountry, printCountries, selectCity, printCities } from "./locationSelector";
+import {
+  selectRegion,
+  selectCountry,
+  printCountries,
+  selectCity,
+  printCities,
+} from "./locationSelector";
 import { updateStore } from "../index";
 import { getDateString } from "./helperFunctions";
 
@@ -29,7 +35,9 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
               : ""
           }
           ${
-            selectedCountry && selectedRegion && selectedCity !== selectedCountry
+            selectedCountry &&
+            selectedRegion &&
+            selectedCity !== selectedCountry
               ? `<select required id="city" onchange="Client.setCity(this.value)" name="city">
           <option value="" >SELECT CITY/STATE</option>
           ${printCities(selectedCountry, selectedCity).join(" ")}
@@ -42,7 +50,9 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
         <label for="date">Traveling date:</label>
         <input required min="${currentDate}" max="${futureDate}" type="date" value="" id="date" form="usrform" placeholder="date"/>
       </div>
-        <button type="button" ${selectedCountry && selectedRegion && selectedCity ? "" : "disabled"} onclick="Client.handleForm('${selectedRegion}', '${selectedCountry}', '${selectedCity}')">Check weather</button>
+        <button type="button" ${
+          selectedCountry && selectedRegion && selectedCity ? "" : "disabled"
+        } onclick="Client.handleForm('${selectedRegion}', '${selectedCountry}', '${selectedCity}')">Check weather</button>
     </form>
     <div id="note">${note}</div>
 </section>`;
@@ -55,26 +65,35 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
 
     if (!selectedDate) {
       updateStore({
-        note: "Please select a date!"
+        note: "Please select a date!",
       });
       return;
     }
 
+    updateStore({
+      mainNote: "",
+      note: "Getting information...",
+    });
+
     await fetch("http://localhost:8081/post-data", {
       method: "POST", // or 'PUT'
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         region: selectedRegion,
         country: selectedCountry,
         city: selectedCity,
-        date: selectedDate
-      })
+        date: selectedDate,
+      }),
     });
 
     await updateUI();
   } catch (e) {
+    updateStore({
+      mainNote: `Sorry, couldn't get your information, ${e.message}, please try again!`,
+      note: "No result",
+    });
     console.log(e);
   }
 };
@@ -85,7 +104,10 @@ const updateUI = async () => {
     const data = await res.json();
 
     updateStore({
-      tripsInfo: data.data
+      tripsInfo: data.data.reverse(),
+      note: "",
+      mainNote:
+        "Your trip has been added, you can now add another trip to your list.",
     });
   } catch (e) {
     return `cannot get data: ${e.message}`;

@@ -1,16 +1,26 @@
-# Evaluate a news article with Natural Language Processing Project
+# FEND Capstone - Travel App
 
 ## Generel info
 
-This project is for Udacity's front end nanodegree that requires you to build a web tool that allows users to run Natural Language Processing (NLP) on articles or blogs found on other websites.
+This project is for Udacity's front end nanodegree that requires you to build out a travel app that obtains a desired trip location & date from the user, and displays weather and an image of the location using information obtained from external APIs.
 
-Natural Language Processing. NLPs leverage machine learning and deep learning create a program that can interpret natural human speech. Systems like Alexa, Google Assistant, and many voice interaction programs are well known to us. This is the Wikipedia definition:
+This project is using 3 external APIs, each one is reliant on another to make the app work. As one API will be required to get data from another API.
 
-> Natural language processing (NLP) is a subfield of computer science, information engineering, and artificial intelligence
-> concerned with the interactions between computers and human (natural) languages, in particular how to program computers to
-> process and analyze large amounts of natural language data.
+You can use the form to enter the location you are traveling to and the date you are leaving, and you will get a predicted weather forecast.
 
-Typically, NLP programs require far more resources than individuals have access to, but a fairly new API called Meaningcloud has put a public facing API in front of their NLP system. This project uses it to determine various attributes of an article or blog post.
+The APIs used are:
+
+- [Weatherbit](https://www.weatherbit.io/api) API, it takes in coordinates to provide weather data.
+- to get these coordinates, [Geonames](http://www.geonames.org/export/web-services.html) API was used.
+- Then, an image of the location will be displayed for the user using [pixabay](https://pixabay.com/api/docs/) API.
+
+This is all going to be done in a Webpack environment, using an express server, and wrapped up with service workers.
+
+Features in the app:
+
+- Allow the user to add additional trips that will be displayed in a list sorted from the newest entry.
+- Incorporating [Weatherbit icons](https://www.weatherbit.io/api/codes) into forecast.
+- Pull in an image for the region from Pixabay API when the entered location brings up no results.
 
 The goal of this project is to practice with:
 
@@ -31,17 +41,30 @@ The goal of this project is to practice with:
 - Sass
 - Jest
 
+## Dependencies
+
+- express
+- webpack
+- babel
+- jest
+- node-fetch
+- cors
+- body-parser
+
 ## Setup
 
 - Clone this repo.
 - Install the dependencies by running `npm i` in your terminal.
-- You'll need to setup your own API to be able to use this project:
-  ### Setting up the API
-  - First, you will need to go [here](https://www.meaningcloud.com/developer/sentiment-analysis). Signing up will get you an API key.
+- You'll need to setup your own APIs to be able to use this project:
+  ## Setting up APIs
+  -
+  - First, you will need to go to [Weatherbit](https://www.weatherbit.io/api), [Geonames](http://www.geonames.org/export/web-services.html) and [pixabay](https://pixabay.com/api/docs/). Sign up to each one of them to get your API keys.
   - Next you need to declare the API keys by saving it as an environment variable. Create a new `.env` file in the root of your project.
-  - Fill the .env file with your API keys like this:
+  - Fill the .env file with your API keys like this:**Note: in `GEONAME_USERNAME` variable, add your user name that you sign up with**
   ```
-   API_KEY=**************************
+   GEONAME_USERNAME=**************************
+   WEATHERBIT_API_KEY=**************************
+   PIXABAY_KEY=**************************
   ```
 - run `npm run build-prod` to create the production folders.
 - open your browser on localhost:8001 to see the app running.

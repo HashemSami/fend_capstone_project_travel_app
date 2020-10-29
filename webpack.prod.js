@@ -11,39 +11,38 @@ module.exports = {
   entry: "./src/client/index.js",
   output: {
     libraryTarget: "var",
-    library: "Client"
+    library: "Client",
   },
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})]
+    minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   module: {
     rules: [
       {
         test: /\\.js$/,
         exclude: /node_modules/,
-        loader: "bebel-loader"
+        loader: "bebel-loader",
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "file-loader"
-          }
-        ]
-      }
-    ]
+        loader: "file-loader",
+        options: {
+          outputPath: "icons",
+        },
+      },
+    ],
   },
   plugins: [
     new htmlWebpackPlugin({
       template: "./src/client/views/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
     }),
     new MiniCssExtractPlugin({ filename: "[name].css" }),
-    new WorkboxPlugin.GenerateSW()
-  ]
+    new WorkboxPlugin.GenerateSW(),
+  ],
 };

@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-module.exports.geoName = async city => {
+module.exports.geoName = async (city) => {
   try {
     const uriCity = encodeURI(city);
     const apiKey = process.env.GEONAME_USERNAME;
@@ -9,6 +9,7 @@ module.exports.geoName = async city => {
     const res = await fetch(apiurl);
 
     const data = await res.json();
+    // console.log(data);
     const info = data.geonames[0];
     return [info.lng, info.lat];
   } catch (e) {
@@ -29,7 +30,9 @@ module.exports.weatherForecast = async (lng, lat, date) => {
 
     // filtring data
     const dateString = getDateString(date);
-    const selectedDateInfo = data.data.filter(info => info.datetime === dateString);
+    const selectedDateInfo = data.data.filter(
+      (info) => info.datetime === dateString
+    );
 
     const { max_temp, min_temp, weather } = selectedDateInfo[0];
 
@@ -49,12 +52,11 @@ module.exports.getImage = async (region, country, city) => {
     const res = await fetch(apiurl);
 
     let data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     // if no results from city name
     if (data.hits.length === 0) {
       const apiurlRegional = `https://pixabay.com/api/?key=${apiKey}&q=${region}&image_type=photo&category=travel&per_page=3`;
-      console.log(apiurlRegional);
       const resRegional = await fetch(apiurlRegional);
       data = await resRegional.json();
     }
@@ -68,7 +70,7 @@ module.exports.getImage = async (region, country, city) => {
 };
 
 // gitting a date string
-const getDateString = targetDate => {
+const getDateString = (targetDate) => {
   const date = new Date(targetDate);
   const y = date.getFullYear();
   const m = date.getMonth() + 1;

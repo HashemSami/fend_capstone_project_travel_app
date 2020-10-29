@@ -6,7 +6,8 @@ $light-blue: #82a4b3;
 $gray: #c9c9c8;
 $light-gray: #efebda;
 $cream: #f6debf;
-$light-grayish-pink: #c1a3bc;
+$light-grayish-pink: #e0d0dd;
+$title: #483c46;
 $button-unable: #c9c9c8;
 
 @mixin invalid-box {
@@ -14,7 +15,7 @@ $button-unable: #c9c9c8;
 }
 
 @mixin box {
-  border: 1px solid black;
+  border: 3px solid black;
   border-radius: 5px;
   padding: 5px 10px;
   line-height: 16px;
