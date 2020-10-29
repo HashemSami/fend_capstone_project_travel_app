@@ -1,72 +1,99 @@
-const resultComponent = (analysis) => {
-  if (analysis.err || Object.keys(analysis).length === 0) {
+import { calculateRemainingDays } from "./helperFunctions";
+import { t01d } from "../icons";
+
+const resultComponent = tripsInfo => {
+  if (tripsInfo.length === 0) {
     return `
     <section id="result">
-    <div id="photo"><p>photo</P></div>
-    <div id="info"><p>info</P></div>
+    <div id="card">
+      <div id="photo"><img alt="Paris" src="https://pixabay.com/get/57e8d7414c53a814f1dc846096293f76133bd7ed554c704f752c73dd904fcc50_640.jpg"/></div>
+      <div id="info">
+        <p id="card-title">Your trip To: </p>
+        <p><span>Saudi Arabia, Jeddah</pan></p>
+        <p>Days Remaining:</p>
+        <p><span>10 days<span></p>
+        <hr>
+        <table>
+          <tr>
+            <th>Longitude</td>
+            <th>Latitude</td>
+          </tr>
+          <tr>
+            <td><span>156.6</span></td>
+            <td><span>54.6</span></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Max temp</td>
+            <th>Min temp</td>
+          </tr>
+          <tr>
+            <td><span>23</span></td>
+            <td><span>15</span></td>
+          </tr>
+        </table>
+        <hr>
+        <p>Weather forecast:</p>
+        <div id="wether-dis">
+          <p><span>mostly cloudy<span></p>
+          <img src="${t01d}"/>
+          <div style="background-image: url(${t01d});"></div>
+        </div>
+      </div>
+    </div>
     <section/>`;
   }
-  const {
-    confidence,
-    irony,
-    score_tag,
-    agreement,
-    sentence_list,
-    subjectivity,
-  } = analysis;
 
-  const polarity = (score) => {
-    switch (score) {
-      case "P+":
-        return "Strong positive";
-      case "P":
-        return "Positive";
-      case "NEU":
-        return "Neutral";
-      case "N":
-        return "Negative";
-      case "N+":
-        return "Strong Negative";
-      default:
-        return "not found";
-    }
-  };
-  return `
-    <section id="result">
-    <div id="overall">
-    <h4>Overall analysis</h4>
-    <p>Confidence: <span>${confidence}%</span></p>
-    <p>Irony: <span>${irony}</span></p>
-    <p>Overall polarity of the text : <span>${polarity(score_tag)}</span> </P>
-    <p>Dose the content has an agreement between the sentiments detected in the text? : <span> ${
-      agreement === "AGREEMENT" ? "Yes" : "No"
-    }</span></p>
-    <p>Does the content has any subjectivity? : <span>${
-      subjectivity === "OBJECTIVE" ? "No" : "Yes"
-    }</span></p>
+  return ` 
+  <section id="result">
+  ${tripsInfo
+    .map(trip => {
+      const { region, country, city, longitude, latitude, date, max_temp, min_temp, weather, imageURL, tags } = trip;
+      const remainingDays = calculateRemainingDays(date);
+      return `
+      <div id="card">
+      <div id="photo"><img alt="${tags}" src="${imageURL}"/></div>
+      <div id="info">
+        <p id="card-title">Your trip To: </p>
+        <p><span>${country}, ${city}</pan></p>
+        <p>Days Remaining:</p>
+        <p><span>${remainingDays} day/s<span></p>
+        <hr>
+        <table>
+          <tr>
+            <th>Longitude</td>
+            <th>Latitude</td>
+          </tr>
+          <tr>
+            <td><span>${longitude}</span></td>
+            <td><span>${latitude}</span></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Max temp</td>
+            <th>Min temp</td>
+          </tr>
+          <tr>
+            <td><span>${max_temp} &#8451;</span></td>
+            <td><span>${min_temp} &#8451;</span></td>
+          </tr>
+        </table>
+        <hr>
+        <p>Weather forecast:</p>
+        <div id="wether-dis">
+          <p><span>${weather.description}<span></p>
+          <p><span>${weather.icon}<span></p>
+        </div>
+      </div>
     </div>
-    <table>
-    <tr id="table-head">
-    <th>Sentence / Word detected</th>
-    <th>Beginning of the paragraph</th>
-    <th>Confidence</th>
-    <th>Polarity</th>
-    </tr>
-    ${sentence_list
-      .map((sentence) => {
-        const { text, bop, confidence, score_tag } = sentence;
-        return `
-      <tr>
-      <td>${text}</td>
-      <td>${bop}</td>
-      <td>${confidence}</td>
-      <td>${polarity(score_tag)}</td>
-      </tr>
-      `;
-      })
-      .join(" ")}
-    </table>
-  </section>`;
+    `;
+    })
+    .join(" ")}
+  <section/>`;
 };
 
 export { resultComponent };

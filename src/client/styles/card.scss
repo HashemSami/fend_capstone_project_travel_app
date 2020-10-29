@@ -1,0 +1,69 @@
+@import "variables";
+
+#card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "photo"
+    "info";
+  grid-gap: 10px;
+  //   justify-content: center;
+  width: 20em;
+  margin-top: 20px;
+  background-color: $light-blue;
+  padding: 15px 15px;
+  border: 2px solid black;
+  border-radius: 5px;
+  //   @include box;
+
+  @media (min-width: $breakpoint) {
+    border-top: none;
+    width: 30em;
+    margin: 20px 60px;
+  }
+  #photo {
+    grid-area: photo;
+    img {
+      display: block;
+      margin-top: auto;
+      height: auto;
+      width: 100%;
+      border-radius: 5px;
+    }
+  }
+
+  #info {
+    grid-area: info;
+    font-size: 125%;
+    background-color: snow;
+    padding: 15px;
+    border-radius: 5px;
+    // @include box;
+    border: 1px solid black;
+    // width: 100%;
+    p {
+      font-weight: bold;
+    }
+    span {
+      color: crimson;
+    }
+    table {
+      background-color: transparent;
+      border: none;
+      td,
+      th,
+      tr {
+        background-color: transparent;
+
+        text-align: center;
+        border: none;
+      }
+    }
+
+    #wether-dis {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+}

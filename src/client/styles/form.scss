@@ -2,8 +2,9 @@
 
 #usrform {
   grid-area: form;
-  background-color: $form-color;
+  background-color: $light-blue;
   // width: 10em;
+  color: snow;
   @include box;
   justify-content: center;
   padding-top: 20px;
@@ -79,13 +80,14 @@
       @include box;
       grid-area: submit;
       font-size: 1em;
-      background-color: blue;
-      color: snow;
+      background-color: $dark-blue;
+      color: black;
       width: 10em;
       padding: 10px;
 
       &:disabled {
-        background-color: rgb(121, 121, 255);
+        background-color: $button-unable;
+        color: snow;
       }
     }
   }
