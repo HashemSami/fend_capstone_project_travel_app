@@ -1,56 +1,31 @@
 import { calculateRemainingDays } from "./helperFunctions";
-import { t01d } from "../icons";
+import * as icons from "../icons";
 
-const resultComponent = tripsInfo => {
+const resultComponent = (tripsInfo, mainNote) => {
   if (tripsInfo.length === 0) {
     return `
-    <section id="result">
-    <div id="card">
-      <div id="photo"><img alt="Paris" src="https://pixabay.com/get/57e8d7414c53a814f1dc846096293f76133bd7ed554c704f752c73dd904fcc50_640.jpg"/></div>
-      <div id="info">
-        <p id="card-title">Your trip To: </p>
-        <p><span>Saudi Arabia, Jeddah</pan></p>
-        <p>Days Remaining:</p>
-        <p><span>10 days<span></p>
-        <hr>
-        <table>
-          <tr>
-            <th>Longitude</td>
-            <th>Latitude</td>
-          </tr>
-          <tr>
-            <td><span>156.6</span></td>
-            <td><span>54.6</span></td>
-          </tr>
-        </table>
-
-        <table>
-          <tr>
-            <th>Max temp</td>
-            <th>Min temp</td>
-          </tr>
-          <tr>
-            <td><span>23</span></td>
-            <td><span>15</span></td>
-          </tr>
-        </table>
-        <hr>
-        <p>Weather forecast:</p>
-        <div id="wether-dis">
-          <p><span>mostly cloudy<span></p>
-          <img src="${t01d}"/>
-          <div style="background-image: url(${t01d});"></div>
-        </div>
-      </div>
-    </div>
-    <section/>`;
+    <h4 id="main-note">Welcome to your trips planner, please select your traveling location and date...</h4>
+    `;
   }
 
   return ` 
+  <h4 id="main-note">${mainNote}</h4>
   <section id="result">
   ${tripsInfo
-    .map(trip => {
-      const { region, country, city, longitude, latitude, date, max_temp, min_temp, weather, imageURL, tags } = trip;
+    .map((trip) => {
+      const {
+        region,
+        country,
+        city,
+        longitude,
+        latitude,
+        date,
+        max_temp,
+        min_temp,
+        weather,
+        imageURL,
+        tags,
+      } = trip;
       const remainingDays = calculateRemainingDays(date);
       return `
       <div id="card">
@@ -86,7 +61,7 @@ const resultComponent = tripsInfo => {
         <p>Weather forecast:</p>
         <div id="wether-dis">
           <p><span>${weather.description}<span></p>
-          <p><span>${weather.icon}<span></p>
+          <img src="${icons[`${weather.icon}`]}"/>
         </div>
       </div>
     </div>

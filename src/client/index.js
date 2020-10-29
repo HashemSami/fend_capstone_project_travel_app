@@ -5,7 +5,7 @@ import "./styles/result.scss";
 import "./styles/form.scss";
 import "./styles/main.scss";
 import "./styles/card.scss";
-import { App } from "./App";
+import { App } from "./js/App";
 import { selectCountry, selectCity, setCity } from "./js/locationSelector";
 import { handleForm } from "./js/formComponent";
 
@@ -14,16 +14,16 @@ const store = {
   selectedCountry: "",
   selectedCity: "",
   tripsInfo: [],
-  note: ""
+  mainNote: "",
+  note: "",
 };
 
 // add our markup to the page
 const root = document.getElementById("root");
 
-// pass this function to other components
-export const updateStore = newState => {
+export const updateStore = (newState) => {
   const newStore = Object.assign(store, newState);
-  console.log(newStore);
+  // console.log(newStore);
   render(root, newStore);
 };
 

@@ -29,7 +29,6 @@ app.get("/", function (req, res) {
 app.post("/post-data", async (req, res) => {
   try {
     const { region, country, city, date } = req.body;
-    console.log(req.body);
 
     // API calls
     const [lng, lat] = await geoName(city);
@@ -50,10 +49,10 @@ app.post("/post-data", async (req, res) => {
       min_temp,
       weather,
       imageURL,
-      tags
+      tags,
     };
     dataBase.data.push(tripData);
-    console.log(dataBase);
+    // console.log(dataBase);
 
     res.send("done");
   } catch (e) {

@@ -1,3 +1,4 @@
+@import "variables";
 #head {
   grid-area: head;
   display: flex;
@@ -9,5 +10,6 @@
 
   #title {
     font-weight: bold;
+    color: $title;
   }
 }

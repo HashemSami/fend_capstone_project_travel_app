@@ -14,11 +14,12 @@
   padding: 15px 15px;
   border: 2px solid black;
   border-radius: 5px;
+  box-shadow: 3px 2px #888888c0;
   //   @include box;
 
   @media (min-width: $breakpoint) {
     border-top: none;
-    width: 30em;
+    width: 20em;
     margin: 20px 60px;
   }
   #photo {
@@ -34,7 +35,7 @@
 
   #info {
     grid-area: info;
-    font-size: 125%;
+    font-size: 100%;
     background-color: snow;
     padding: 15px;
     border-radius: 5px;
@@ -43,6 +44,7 @@
     // width: 100%;
     p {
       font-weight: bold;
+      margin-top: 0;
     }
     span {
       color: crimson;
@@ -63,7 +65,14 @@
     #wether-dis {
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-evenly;
+      p {
+        margin-top: 16px;
+      }
+      img {
+        // margin: auto;
+        width: 17%;
+      }
     }
   }
 }
