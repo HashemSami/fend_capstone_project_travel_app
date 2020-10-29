@@ -8,25 +8,33 @@ module.exports = {
   entry: "./src/client/index.js",
   output: {
     libraryTarget: "var",
-    library: "Client",
+    library: "Client"
   },
   module: {
     rules: [
       {
         test: /\\.js$/,
         exclude: /node_modules/,
-        loader: "bebel-loader",
+        loader: "bebel-loader"
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
-    ],
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader"
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     new htmlWebpackPlugin({
       template: "./src/client/views/index.html",
-      filename: "./index.html",
+      filename: "./index.html"
     }),
     new CleanWebpackPlugin({
       // Simulate the removal of files
@@ -35,7 +43,7 @@ module.exports = {
       verbose: true,
       // Automatically remove all unused webpack assets on rebuild
       cleanStaleWebpackAssets: true,
-      protectWebpackAssets: false,
-    }),
-  ],
+      protectWebpackAssets: false
+    })
+  ]
 };

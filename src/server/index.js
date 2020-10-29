@@ -1,8 +1,10 @@
 var path = require("path");
 const express = require("express");
-const { apiCall, validateURL } = require("./apiCall");
+const { geoName, weatherForecast, getImage } = require("./apiCalls");
 const dotenv = require("dotenv");
 dotenv.config();
+
+const dataBase = require("./mockDatabase");
 
 const app = express();
 
@@ -24,28 +26,44 @@ app.get("/", function (req, res) {
   res.sendFile("dist/index.html");
 });
 
-app.post("/get-geolocation", async (req, res) => {
+app.post("/post-data", async (req, res) => {
   try {
-    const body = req.body;
-    const message = "Invalid URL, please make sure you type the right URL";
+    const { region, country, city, date } = req.body;
+    console.log(req.body);
 
-    let apiRes;
-    const validURL = validateURL(body.url);
+    // API calls
+    const [lng, lat] = await geoName(city);
+    const [max_temp, min_temp, weather] = await weatherForecast(lng, lat, date);
+    const [imageURL, tags] = await getImage(region, country, city);
 
-    if (body.url && validURL) {
-      apiRes = await apiCall(null, body.url);
-      if (apiRes.status.code == "212") throw { err: message };
-    } else {
-      if (body.text) {
-        apiRes = await apiCall(body.text);
-      } else {
-        throw { err: message };
-      }
-    }
-    res.send(apiRes);
+    const id = dataBase.data.length + 1;
+    // wupdating the database
+    const tripData = {
+      id,
+      region,
+      country,
+      city,
+      longitude: lng,
+      latitude: lat,
+      date,
+      max_temp,
+      min_temp,
+      weather,
+      imageURL,
+      tags
+    };
+    dataBase.data.push(tripData);
+    console.log(dataBase);
+
+    res.send("done");
   } catch (e) {
-    res.send(e);
+    console.log(e.message);
+    res.send(e.message);
   }
+});
+
+app.get("/get-data", (req, res) => {
+  res.send(dataBase);
 });
 
 const port = 8081;

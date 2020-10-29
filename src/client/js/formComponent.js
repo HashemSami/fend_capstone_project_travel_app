@@ -1,23 +1,15 @@
-import {
-  selectRegion,
-  selectCountry,
-  printCountries,
-  selectCity,
-  printCities,
-} from "./locationSelector";
+import { selectRegion, selectCountry, printCountries, selectCity, printCities } from "./locationSelector";
+import { updateStore } from "../index";
+import { getDateString } from "./helperFunctions";
 
-const formComponent = (
-  regionsOptions,
-  selectedRegion,
-  countriesOptions,
-  selectedCountry,
-  citiesOptions,
-  selectedCity,
-  note
-) => {
+const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
   const d = new Date();
-  const currentDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-  console.log(currentDate);
+  const currentDate = getDateString(d.getTime());
+
+  const dFuture = new Date();
+  dFuture.setDate(d.getDate() + 16);
+  const futureDate = getDateString(dFuture.getTime());
+
   return `
   <section id="usrform">
     <form>
@@ -37,7 +29,7 @@ const formComponent = (
               : ""
           }
           ${
-            selectedCountry && selectedRegion && selectedCity !== "none"
+            selectedCountry && selectedRegion && selectedCity !== selectedCountry
               ? `<select required id="city" onchange="Client.setCity(this.value)" name="city">
           <option value="" >SELECT CITY/STATE</option>
           ${printCities(selectedCountry, selectedCity).join(" ")}
@@ -48,44 +40,56 @@ const formComponent = (
       </div>
       <div id="travel-date">
         <label for="date">Traveling date:</label>
-        <input required min="${currentDate}" type="date" value="" id="date" form="usrform" placeholder="date"/>
+        <input required min="${currentDate}" max="${futureDate}" type="date" value="" id="date" form="usrform" placeholder="date"/>
       </div>
-        <button type="button" ${
-          selectedCountry && selectedRegion && selectedCity ? "" : "disabled"
-        } onclick="Client.handleForm()">Check weather</button>
+        <button type="button" ${selectedCountry && selectedRegion && selectedCity ? "" : "disabled"} onclick="Client.handleForm('${selectedRegion}', '${selectedCountry}', '${selectedCity}')">Check weather</button>
     </form>
     <div id="note">${note}</div>
 </section>`;
 };
 
-const handleForm = async () => {
-  const date = document.getElementById("date");
-  // const region = document.getElementById("region");
-  // const country = document.getElementById("country");
-  // const city = document.getElementById("city");
-  const selectedDate = date.valueAsNumber;
+const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
+  try {
+    const date = document.getElementById("date");
+    const selectedDate = date.valueAsNumber;
 
-  // calculate the dfference in days
-  const current = new Date().getTime();
-  const differenceInTime = selectedDate - current;
-  const differenceInDayes = differenceInTime / (1000 * 3600 * 24);
-  console.log(Math.floor(differenceInDayes));
+    if (!selectedDate) {
+      updateStore({
+        note: "Please select a date!"
+      });
+      return;
+    }
 
-  // console.log(region.value);
-  // console.log(country.value);
-  // console.log(city.value);
+    await fetch("http://localhost:8081/post-data", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        region: selectedRegion,
+        country: selectedCountry,
+        city: selectedCity,
+        date: selectedDate
+      })
+    });
 
-  // const res = await fetch("http://localhost:8081/get-geolocation", {
-  //   method: "POST", // or 'PUT'
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     region: region,
-  //     country: country,
-  //     city: city,
-  //   }),
-  // });
+    await updateUI();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const updateUI = async () => {
+  try {
+    const res = await fetch("http://localhost:8081/get-data");
+    const data = await res.json();
+
+    updateStore({
+      tripsInfo: data.data
+    });
+  } catch (e) {
+    return `cannot get data: ${e.message}`;
+  }
 };
 
 export { formComponent, selectCountry, selectCity, handleForm };
