@@ -67,6 +67,9 @@ app.get("/get-data", (req, res) => {
 
 const port = 8081;
 // designates what port the app will listen to for incoming requests
-app.listen(port, function () {
+const server = app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
 });
+
+// for testing porposes
+module.exports = { app, server };
