@@ -1,10 +1,10 @@
 const fetch = require("node-fetch");
 
-module.exports.geoName = async (city) => {
+module.exports.geoName = async city => {
   try {
     const uriCity = encodeURI(city);
     const apiKey = process.env.GEONAME_USERNAME;
-    const apiurl = `http://api.geonames.org/searchJSON?q=${uriCity}&username=${apiKey}`;
+    const apiurl = `http://api.geonames.org/searchJSON?q=${uriCity}&username=hashemfay`;
 
     const res = await fetch(apiurl);
 
@@ -30,9 +30,7 @@ module.exports.weatherForecast = async (lng, lat, date) => {
 
     // filtring data
     const dateString = getDateString(date);
-    const selectedDateInfo = data.data.filter(
-      (info) => info.datetime === dateString
-    );
+    const selectedDateInfo = data.data.filter(info => info.datetime === dateString);
 
     const { max_temp, min_temp, weather } = selectedDateInfo[0];
 
@@ -70,7 +68,7 @@ module.exports.getImage = async (region, country, city) => {
 };
 
 // gitting a date string
-const getDateString = (targetDate) => {
+const getDateString = targetDate => {
   const date = new Date(targetDate);
   const y = date.getFullYear();
   const m = date.getMonth() + 1;
