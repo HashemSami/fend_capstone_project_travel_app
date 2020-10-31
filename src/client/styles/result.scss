@@ -4,13 +4,13 @@
   grid-area: result;
   background-color: $cream;
   margin-right: 15px;
-  font-size: 0.8em;
+  font-size: 5vw;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-areas: "card";
   grid-gap: 10px;
   justify-content: center;
-  width: auto;
+  // width: 100%;
   grid-auto-rows: minmax(100px, auto);
   border: 2px solid black;
   border-radius: 5px;

@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-module.exports.geoName = async city => {
+module.exports.geoName = async (city, countryCode) => {
   try {
     const uriCity = encodeURI(city);
     const apiKey = process.env.GEONAME_USERNAME;
@@ -9,11 +9,13 @@ module.exports.geoName = async city => {
     const res = await fetch(apiurl);
 
     const data = await res.json();
-    // console.log(data);
+    console.log(data.geonames[0]);
     const info = data.geonames[0];
+    if (info.countryCode !== countryCode) throw "COUNTRY MATCHING ERROR";
     return [info.lng, info.lat];
   } catch (e) {
-    console.log("Geo Name error", e.message);
+    console.log("Geo Name error", e);
+    if (e == "COUNTRY MATCHING ERROR") return false;
     return e;
   }
 };
@@ -30,7 +32,9 @@ module.exports.weatherForecast = async (lng, lat, date) => {
 
     // filtring data
     const dateString = getDateString(date);
-    const selectedDateInfo = data.data.filter(info => info.datetime === dateString);
+    const selectedDateInfo = data.data.filter(
+      (info) => info.datetime === dateString
+    );
 
     const { max_temp, min_temp, weather } = selectedDateInfo[0];
 
@@ -68,7 +72,7 @@ module.exports.getImage = async (region, country, city) => {
 };
 
 // gitting a date string
-const getDateString = targetDate => {
+const getDateString = (targetDate) => {
   const date = new Date(targetDate);
   const y = date.getFullYear();
   const m = date.getMonth() + 1;

@@ -21,17 +21,14 @@ app.use(bodyParser.json());
 
 console.log(__dirname);
 
-app.get("/", function (req, res) {
-  // res.sendFile('dist/index.html')
-  res.sendFile("dist/index.html");
-});
-
 app.post("/post-data", async (req, res) => {
   try {
-    const { region, country, city, date } = req.body;
+    const { region, country, city, date, contryInfo } = req.body;
 
     // API calls
-    const [lng, lat] = await geoName(city);
+    const geoNameRes = await geoName(city, contryInfo.alpha2Code);
+    if (geoNameRes === false) throw "COUNTRY MATCHING ERROR";
+    const [lng, lat] = geoNameRes;
     const [max_temp, min_temp, weather] = await weatherForecast(lng, lat, date);
     const [imageURL, tags] = await getImage(region, country, city);
 
@@ -42,6 +39,7 @@ app.post("/post-data", async (req, res) => {
       region,
       country,
       city,
+      contryInfo,
       longitude: lng,
       latitude: lat,
       date,
@@ -57,6 +55,10 @@ app.post("/post-data", async (req, res) => {
     res.send("done");
   } catch (e) {
     console.log(e.message);
+    if (e === "COUNTRY MATCHING ERROR")
+      return res.status(500).send({
+        matchErr: "COUNTRY MATCHING ERROR",
+      });
     res.send(e.message);
   }
 });

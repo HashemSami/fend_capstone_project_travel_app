@@ -5,13 +5,21 @@
   background-color: $light-blue;
   // width: 10em;
   color: snow;
-  @include box;
-  justify-content: center;
-  padding-top: 20px;
+  border: 3px solid black;
+  width: 100%;
+  padding: 20px 0;
+  border-radius: 8px;
+  font-size: 1.5em;
+
+  @media (min-width: $breakpoint) {
+    @include box;
+    justify-content: center;
+    // padding-top: 20px;
+  }
 
   #note {
     color: red;
-    padding: 10px 0;
+    padding: 10px 20px;
   }
 
   form {
@@ -24,7 +32,7 @@
     // border: 1px solid #545454;
     border-radius: 3px;
     padding: 0 20px;
-    justify-content: center;
+    // justify-content: center;
 
     #travel-location {
       grid-area: location;
@@ -94,7 +102,7 @@
       background-color: snow;
       color: blue;
       width: 10em;
-      padding: 10px;
+      padding: 10px 10px;
 
       &:hover {
         box-shadow: 5px 5px #888888;

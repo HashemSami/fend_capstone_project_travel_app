@@ -23,16 +23,73 @@ const root = document.getElementById("root");
 
 export const updateStore = (newState) => {
   const newStore = Object.assign(store, newState);
-  // console.log(newStore);
+  console.log(newStore);
   render(root, newStore);
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      //event listeners here
+      // render(root, store);
+
+      const locationElement = document.getElementById("location");
+      locationElement.addEventListener("change", addEventToDropdown);
+
+      console.log(locationElement);
+      console.log("locationElement");
+    },
+    false
+  );
 };
 
 const render = async (root, state) => {
   root.innerHTML = App(state);
 };
 
-window.addEventListener("load", () => {
-  render(root, store);
-});
+window.addEventListener(
+  "load",
+  () => {
+    // render(root, store);
+  },
+  false
+);
 
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    //event listeners here
+    render(root, store);
+    document.addEventListener("change", addEventToDropdown);
+    document.addEventListener("click", (e) => addEventToButton(e, store));
+  },
+  false
+);
+
+const addEventToDropdown = async (e) => {
+  const { target } = e;
+
+  if (target.matches("#region")) {
+    console.log("region");
+    await selectCountry(target);
+  }
+
+  if (target.matches("#country")) {
+    console.log("country");
+    selectCity(target);
+  }
+
+  if (target.matches("#city")) {
+    console.log("city");
+    setCity(target);
+  }
+};
+
+const addEventToButton = (e, store) => {
+  const { target } = e;
+  const { selectedRegion, selectedCountry, selectedCity } = store;
+  if (target.matches("#submit-button")) {
+    console.log("submit-button");
+    handleForm(selectedRegion, selectedCountry, selectedCity);
+  }
+};
 export { handleForm, selectCountry, selectCity, setCity };

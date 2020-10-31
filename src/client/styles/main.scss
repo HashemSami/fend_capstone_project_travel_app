@@ -9,7 +9,8 @@ main {
     "result";
   row-gap: 15px;
   grid-area: main;
-  // width: 100%;
+  width: 100%;
+  font-size: 5vw;
 
   @media (min-width: $breakpoint) {
     // margin: 20px 200px;

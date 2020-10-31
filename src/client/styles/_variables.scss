@@ -17,8 +17,9 @@ $button-unable: #c9c9c8;
 @mixin box {
   border: 3px solid black;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 5px 20px;
+  // width: 100%;
   line-height: 16px;
-  margin: 10px 0;
-  font-size: 0.8em;
+  margin: 15px 0;
+  font-size: 0.9em;
 }

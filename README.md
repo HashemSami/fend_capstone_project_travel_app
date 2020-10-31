@@ -74,7 +74,8 @@ This is all going to be done in a Webpack environment, using an express server, 
   ```
 
 - run `npm run build-prod` to create the production folders.
-- open your browser on localhost:8001 to see the app running.
+- run `npm run start` to start the server.
+- open your browser on localhost:8081 to see the app running.
 
   ### run the app for development and testing:
 
