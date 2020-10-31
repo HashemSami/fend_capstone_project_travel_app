@@ -64,8 +64,8 @@ This is all going to be done in a Webpack environment, using an express server, 
   - Fill the .env file with your API keys like this:
 
     **Note:**
-    **in `GEONAME_USERNAME` variable, you only need to add your user name that you sign up with.**
-    **In case if you start the app for the first time and got a `Geo name error` on the console, that is because Geoname sevice requires you to activate your username by [login](https://www.geonames.org/login) to you account and activate the api, once you are done you can use the api in the app.**
+    _in `GEONAME_USERNAME` variable, you only need to add your user name that you sign up with._
+    _In case if you start the app for the first time and got a `Geo name error` on the console, that is because Geoname sevice requires you to activate your username by [login](https://www.geonames.org/login) to you account and activate the api, once you are done you can use the api in the app._
 
   ```
    GEONAME_USERNAME=**************************
