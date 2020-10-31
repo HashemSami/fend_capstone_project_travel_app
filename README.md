@@ -56,16 +56,23 @@ This is all going to be done in a Webpack environment, using an express server, 
 - Clone this repo.
 - Install the dependencies by running `npm i` in your terminal.
 - You'll need to setup your own APIs to be able to use this project:
+
   ## Setting up APIs
+
   - First, you will need to go to [Weatherbit](https://www.weatherbit.io/api), [Geonames](http://www.geonames.org/export/web-services.html) and [pixabay](https://pixabay.com/api/docs/). Sign up to each one of them to get your API keys.
   - Next you need to declare the API keys by saving it as an environment variable. Create a new `.env` file in the root of the project.
   - Fill the .env file with your API keys like this:
-    **Note: in `GEONAME_USERNAME` variable, you only need to add your user name that you sign up with**
+
+    **Note:**
+    **in `GEONAME_USERNAME` variable, you only need to add your user name that you sign up with.**
+    **In case if you start the app for the first time and got a `Geo name error` on the console, that is because Geoname sevice requires you to activate your username by [login](https://www.geonames.org/login) to you account and activate the api, once you are done you can use the api in the app.**
+
   ```
    GEONAME_USERNAME=**************************
    WEATHERBIT_API_KEY=**************************
    PIXABAY_KEY=**************************
   ```
+
 - run `npm run build-prod` to create the production folders.
 - open your browser on localhost:8001 to see the app running.
 
