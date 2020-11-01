@@ -2,13 +2,67 @@ import { calculateRemainingDays } from "./helperFunctions";
 import * as icons from "../icons";
 
 const resultComponent = (tripsInfo, mainNote) => {
-  if (tripsInfo.length === 0) {
+  if (!mainNote) {
     return `
     <h4 id="main-note">Welcome to your trips planner, please select your traveling location and date...</h4>
+    <section id="result">
+      <div id="card">
+      <div id="photo"><img alt="tags}" src="https://restcountries.eu/data/dza.svg"/></div>
+      <div id="info">
+        <p id="card-title">Your trip To: </p>
+        <p><span>country}, city}</pan></p>
+
+        <p>Date:</p>
+        <p><span>current date-----</span></p>
+
+        <p>Days Remaining:</p>
+        <p><span>remainingDays} day/s<span></p>
+      <hr>
+        <div id="country-info">
+          <p id="subject">Country information:</p>
+          <p id="country-name">Name: <span>contry</span></p>
+          <img id="flag"  src="https://restcountries.eu/data/dza.svg"/>
+          <p id="capital">Capital: <span>city name </span>
+          <p id="lang">Languages: <span>lang</span> </p>
+          <p id="curr">Currency: <span>curr</span> </p>
+        </div>
+
+        
+
+        <hr>
+        <table>
+          <tr>
+            <th>Longitude</td>
+            <th>Latitude</td>
+          </tr>
+          <tr>
+            <td><span>longitude</span></td>
+            <td><span>latitude</span></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Max temp</td>
+            <th>Min temp</td>
+          </tr>
+          <tr>
+            <td><span>max_temp &#8451;</span></td>
+            <td><span>min_temp &#8451;</span></td>
+          </tr>
+        </table>
+        <hr>
+        <p>Weather forecast:</p>
+        <div id="wether-dis">
+          <p><span>dd<span></p>
+          <img src=""/>
+        </div>
+      </div>
+    </div>
     `;
   }
 
-  return ` 
+  return `
   <h4 id="main-note">${mainNote}</h4>
   <section id="result">
   ${tripsInfo
@@ -17,6 +71,7 @@ const resultComponent = (tripsInfo, mainNote) => {
         region,
         country,
         city,
+        countryInfo,
         longitude,
         latitude,
         date,
@@ -32,9 +87,22 @@ const resultComponent = (tripsInfo, mainNote) => {
       <div id="photo"><img alt="${tags}" src="${imageURL}"/></div>
       <div id="info">
         <p id="card-title">Your trip To: </p>
-        <p><span>${country}, ${city}</pan></p>
+        <p><span>${city}</pan></p>
         <p>Days Remaining:</p>
         <p><span>${remainingDays} day/s<span></p>
+        <hr>
+        <div id="country-info">
+          <p id="subject">Country information:</p>
+          <p id="country-name">Name: <span>${country}</span></p>
+          <img id="flag"  src="${countryInfo.flag}"/>
+          <p id="capital">Capital: <span>${countryInfo.capital}</span>
+          <p id="lang">Language: <span>${
+            countryInfo.languages[0].name
+          }</span> </p>
+          <p id="curr">Currency: <span>${
+            countryInfo.currencies[0].name
+          }</span> </p>
+        </div>
         <hr>
         <table>
           <tr>

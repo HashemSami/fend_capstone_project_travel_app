@@ -7,6 +7,7 @@ import {
 } from "./locationSelector";
 import { updateStore } from "../index";
 import { getDateString } from "./helperFunctions";
+import { countriesData } from "./locationSelector/countriesData";
 
 const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
   const d = new Date();
@@ -20,17 +21,18 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
   <section id="usrform">
     <form>
       <div id="travel-location">
-        <label for="location">Traveling to:</label>
+        
         <div id="location">
-          <select required id="region" onchange="Client.selectCountry(this)" name="region">
+          <label for="location">Traveling to:</label>
+          <select required id="region" name="region">
           <option value="" >SELECT REGION</option>
           ${selectRegion(selectedRegion).join(" ")}
           </select>
           ${
             selectedRegion
-              ? `<select required id="country" onchange="Client.selectCity(this)" name="country">
+              ? `<select required id="country" name="country">
           <option value="" >SELECT COUNTRY</option>
-          ${printCountries(selectedRegion, selectedCountry).join(" ")}
+          ${printCountries(selectedCountry).join(" ")}
           </select>`
               : ""
           }
@@ -38,10 +40,9 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
             selectedCountry &&
             selectedRegion &&
             selectedCity !== selectedCountry
-              ? `<select required id="city" onchange="Client.setCity(this.value)" name="city">
-          <option value="" >SELECT CITY/STATE</option>
-          ${printCities(selectedCountry, selectedCity).join(" ")}
-          </select>`
+              ? `<input required id="city" name="city" value="${
+                  selectedCity ? selectedCity : ""
+                }" placeholder="Enter city name">`
               : ""
           }
         </div>
@@ -50,9 +51,9 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
         <label for="date">Traveling date:</label>
         <input required min="${currentDate}" max="${futureDate}" type="date" value="" id="date" form="usrform" placeholder="date"/>
       </div>
-        <button type="button" ${
+        <button id="submit-button" type="button" ${
           selectedCountry && selectedRegion && selectedCity ? "" : "disabled"
-        } onclick="Client.handleForm('${selectedRegion}', '${selectedCountry}', '${selectedCity}')">Check weather</button>
+        } >Submit</button>
     </form>
     <div id="note">${note}</div>
 </section>`;
@@ -63,6 +64,14 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
     const date = document.getElementById("date");
     const selectedDate = date.valueAsNumber;
 
+    const countryInfo = countriesData.counrties.find(
+      (country) => country.name === selectedCountry
+    );
+
+    // countriesData.selectedCountryInfo = countryInfo[0];
+
+    console.log(typeof countryInfo);
+
     if (!selectedDate) {
       updateStore({
         note: "Please select a date!",
@@ -71,11 +80,11 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
     }
 
     updateStore({
-      mainNote: "",
+      mainNote: "Updating...",
       note: "Getting information...",
     });
 
-    await fetch("http://localhost:8081/post-data", {
+    const res = await fetch("http://localhost:8081/post-data", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -85,16 +94,27 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
         country: selectedCountry,
         city: selectedCity,
         date: selectedDate,
+        countryInfo: countryInfo,
       }),
     });
 
+    if (res.status == 500) throw await res.json();
+
     await updateUI();
   } catch (e) {
+    if (e.matchErr) {
+      updateStore({
+        mainNote:
+          "Looks like the country you select doesn't match with the city you typed",
+        note: "No result",
+      });
+      return;
+    }
     updateStore({
       mainNote: `Sorry, couldn't get your information, ${e.message}, please try again!`,
       note: "No result",
     });
-    console.log(e);
+    // console.log(e);
   }
 };
 

@@ -1,7 +1,14 @@
-import "regenerator-runtime/runtime.js";
-import { app, server } from "server";
+// import "regenerator-runtime/runtime.js";
+import { app, server } from "app";
+// const { app, server } = require("app");
 import db from "mockDB";
 const request = require("supertest");
+// const express = require("express");
+// const mockApp = express();
+console.log("teeeeee");
+// mockApp.use(express.urlencoded({ extended: false }));
+// mockApp.use("/", router);
+
 jest.setTimeout(30000);
 
 describe("testing app routes", () => {
