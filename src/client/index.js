@@ -25,34 +25,11 @@ export const updateStore = (newState) => {
   const newStore = Object.assign(store, newState);
   console.log(newStore);
   render(root, newStore);
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-      //event listeners here
-      // render(root, store);
-
-      const locationElement = document.getElementById("location");
-      locationElement.addEventListener("change", addEventToDropdown);
-
-      console.log(locationElement);
-      console.log("locationElement");
-    },
-    false
-  );
 };
 
 const render = async (root, state) => {
   root.innerHTML = App(state);
 };
-
-window.addEventListener(
-  "load",
-  () => {
-    // render(root, store);
-  },
-  false
-);
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -92,4 +69,3 @@ const addEventToButton = (e, store) => {
     handleForm(selectedRegion, selectedCountry, selectedCity);
   }
 };
-export { handleForm, selectCountry, selectCity, setCity };

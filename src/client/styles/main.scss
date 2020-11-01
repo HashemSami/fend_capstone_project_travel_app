@@ -9,18 +9,15 @@ main {
     "result";
   row-gap: 15px;
   grid-area: main;
-  width: 100%;
-  font-size: 5vw;
 
   @media (min-width: $breakpoint) {
-    // margin: 20px 200px;
     font-size: 25px;
     grid-template-rows: auto auto 1fr;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1fr 1.5fr;
     grid-template-areas:
-      "note note"
-      "result form"
-      "result .";
+      "note note note"
+      "result result form"
+      "result result .";
     row-gap: 15px;
   }
   #main-note {

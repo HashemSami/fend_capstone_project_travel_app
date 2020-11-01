@@ -21,8 +21,9 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
   <section id="usrform">
     <form>
       <div id="travel-location">
-        <label for="location">Traveling to:</label>
+        
         <div id="location">
+          <label for="location">Traveling to:</label>
           <select required id="region" name="region">
           <option value="" >SELECT REGION</option>
           ${selectRegion(selectedRegion).join(" ")}
@@ -31,7 +32,7 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
             selectedRegion
               ? `<select required id="country" name="country">
           <option value="" >SELECT COUNTRY</option>
-          ${printCountries(selectedRegion, selectedCountry).join(" ")}
+          ${printCountries(selectedCountry).join(" ")}
           </select>`
               : ""
           }
@@ -52,7 +53,7 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
       </div>
         <button id="submit-button" type="button" ${
           selectedCountry && selectedRegion && selectedCity ? "" : "disabled"
-        } >Check weather</button>
+        } >Submit</button>
     </form>
     <div id="note">${note}</div>
 </section>`;
@@ -79,7 +80,7 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
     }
 
     updateStore({
-      mainNote: "",
+      mainNote: "Updating...",
       note: "Getting information...",
     });
 
@@ -93,7 +94,7 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
         country: selectedCountry,
         city: selectedCity,
         date: selectedDate,
-        contryInfo: countryInfo,
+        countryInfo: countryInfo,
       }),
     });
 

@@ -9,13 +9,13 @@ module.exports.geoName = async (city, countryCode) => {
     const res = await fetch(apiurl);
 
     const data = await res.json();
-    console.log(data.geonames[0]);
+    // console.log(data.geonames[0]);
     const info = data.geonames[0];
     if (info.countryCode !== countryCode) throw "COUNTRY MATCHING ERROR";
     return [info.lng, info.lat];
   } catch (e) {
     console.log("Geo Name error", e);
-    if (e == "COUNTRY MATCHING ERROR") return false;
+    if (e === "COUNTRY MATCHING ERROR") return false;
     return e;
   }
 };

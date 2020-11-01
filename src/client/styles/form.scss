@@ -3,53 +3,52 @@
 #usrform {
   grid-area: form;
   background-color: $light-blue;
-  // width: 10em;
   color: snow;
   border: 3px solid black;
-  width: 100%;
   padding: 20px 0;
   border-radius: 8px;
-  font-size: 1.5em;
-
+  font-size: 1.2em;
   @media (min-width: $breakpoint) {
-    @include box;
-    justify-content: center;
-    // padding-top: 20px;
+    margin-left: 30px;
   }
 
   #note {
-    color: red;
+    color: rgb(182, 0, 0);
     padding: 10px 20px;
   }
 
   form {
     display: grid;
     grid-template-rows: 1fr auto auto;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
-      "location"
-      "date"
-      "submit";
-    // border: 1px solid #545454;
+      ". location ."
+      ". date ."
+      ". submit .";
     border-radius: 3px;
-    padding: 0 20px;
-    // justify-content: center;
+    column-gap: 15px;
 
     #travel-location {
       grid-area: location;
 
       #location {
         display: grid;
-        grid-template-rows: 1fr auto auto;
-        grid-template-columns: 15em;
+        grid-template-rows: auto auto auto auto;
         grid-template-areas:
+          "input-label"
           "region-input"
           "country-input"
           "city-input";
-        grid-auto-rows: minmax(100px, auto);
+        align-items: center;
+
+        label {
+          grid-area: input-label;
+        }
 
         #region {
           grid-area: region-input;
-          @include box;
+          justify-self: center;
+          @include input-box;
           &:invalid {
             @include invalid-box;
           }
@@ -59,7 +58,8 @@
         }
         #country {
           grid-area: country-input;
-          @include box;
+          justify-self: center;
+          @include input-box;
           &:invalid {
             @include invalid-box;
           }
@@ -69,7 +69,8 @@
         }
         #city {
           grid-area: city-input;
-          @include box;
+          justify-self: center;
+          @include input-box;
           &:invalid {
             @include invalid-box;
           }
@@ -82,10 +83,21 @@
 
     #travel-date {
       grid-area: date;
-      display: flex;
+      display: grid;
       flex-direction: column;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "date-label"
+        "date-input";
+
+      label {
+        grid-area: date-label;
+      }
+
       #date {
-        @include box;
+        grid-area: date-input;
+        justify-self: center;
+        @include input-box;
         &:invalid {
           @include invalid-box;
         }
@@ -96,13 +108,12 @@
     }
 
     button {
-      @include box;
+      @include input-box;
       grid-area: submit;
-      font-size: 1em;
+      justify-self: center;
       background-color: snow;
       color: blue;
-      width: 10em;
-      padding: 10px 10px;
+      font-weight: bold;
 
       &:hover {
         box-shadow: 5px 5px #888888;

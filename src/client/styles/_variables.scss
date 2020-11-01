@@ -14,12 +14,16 @@ $button-unable: #c9c9c8;
   border: 3px solid red;
 }
 
-@mixin box {
+@mixin input-box {
   border: 3px solid black;
   border-radius: 5px;
-  padding: 5px 20px;
-  // width: 100%;
-  line-height: 16px;
-  margin: 15px 0;
+  padding: 10px 20px;
+  width: 90%;
   font-size: 0.9em;
+  margin: 15px 0;
+}
+
+@mixin flex-text {
+  display: flex;
+  flex-wrap: wrap;
 }

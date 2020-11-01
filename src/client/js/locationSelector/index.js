@@ -1,12 +1,8 @@
-import { countries, city_states } from "./countriesInfo";
 import { countriesData } from "./countriesData";
 import { updateStore } from "../../index";
 
+// loop through the regions
 export const selectRegion = (selectedRegion) => {
-  // loop through the regions object to add the select options
-  // and add to every select option an onchange attribute to have effect on the
-  // country select
-
   const optionsArray = countriesData.regions.map((region) => {
     return `<option value="${region}" ${
       selectedRegion === region ? "selected" : ""
@@ -15,10 +11,8 @@ export const selectRegion = (selectedRegion) => {
   return optionsArray;
 };
 
+// fetching countries data to create a dropdown
 export const selectCountry = async (regions) => {
-  // grab the value from the region select, then will select from the
-  // country object only the values of the region, by plitting the values from
-  // region object
   try {
     const selectedRegion = regions.value;
     console.log(selectedRegion);
@@ -50,10 +44,14 @@ export const selectCountry = async (regions) => {
       selectedCity: null,
       note: "",
     });
-  } catch (e) {}
+  } catch (e) {
+    updateStore({
+      mainNote: "Couldn't collect countries data, please try again",
+    });
+  }
 };
 
-export const printCountries = (selectedRegion, selectedCountry) => {
+export const printCountries = (selectedCountry) => {
   const optionsArray = countriesData.counrties.map((country) => {
     const { name } = country;
     return `<option value="${name}" ${
@@ -63,9 +61,8 @@ export const printCountries = (selectedRegion, selectedCountry) => {
   return optionsArray;
 };
 
-export const selectCity = async (countries) => {
-  // finally will select the city based on the value selected from the country
-  // by splitting the corresponding value formthe city_state object
+// open city input
+export const selectCity = (countries) => {
   const selectedCountry = countries.value;
 
   if (!selectedCountry) {
@@ -75,15 +72,6 @@ export const selectCity = async (countries) => {
     });
     return false;
   }
-
-  console.log(selectedCountry);
-
-  // if (!city_states[selectedCountry]) {
-  //   return updateStore({
-  //     selectedCity: selectedCountry,
-  //     selectedCountry: selectedCountry,
-  //   });
-  // }
 
   updateStore({
     selectedCountry: selectedCountry,
@@ -101,16 +89,4 @@ export const setCity = (city) => {
   updateStore({
     selectedCity: selectedCity,
   });
-};
-
-export const printCities = (selectedCountry, selectedCity) => {
-  const citiesArray = city_states[selectedCountry].split("|");
-
-  const optionsArray = citiesArray.map((city, i) => {
-    if (i === 0) return;
-    return `<option value="${city}" ${
-      selectedCity === city ? "selected" : ""
-    }>${city}</option>`;
-  });
-  return optionsArray;
 };
