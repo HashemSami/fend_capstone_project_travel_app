@@ -38,7 +38,7 @@
     #country-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr 1fr;
       grid-template-areas:
         "subject subject"
         "country-name flag"
@@ -47,7 +47,7 @@
       row-gap: 10px;
       column-gap: 5px;
       @media (min-width: $breakpoint) {
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto 1fr 1fr 1fr 1fr;
         grid-template-areas:
           "subject flag"
           "country-name flag"
@@ -62,8 +62,6 @@
 
       #subject {
         grid-area: subject;
-        margin-top: auto;
-        margin-bottom: auto;
         padding: 0;
       }
 

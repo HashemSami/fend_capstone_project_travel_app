@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 console.log(__dirname);
 
-app.use("/", router);
+app.use(router);
 
 const port = 8081;
 // designates what port the app will listen to for incoming requests
@@ -27,4 +27,4 @@ const server = app.listen(port, function () {
 });
 
 // for testing porposes
-module.exports = { app, server };
+module.exports = { server };

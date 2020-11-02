@@ -29,7 +29,7 @@ router.post("/post-data", async (req, res) => {
       min_temp,
       weather,
       imageURL,
-      tags,
+      tags
     };
     dataBase.data.push(tripData);
     // console.log(dataBase);
@@ -39,7 +39,7 @@ router.post("/post-data", async (req, res) => {
     console.log(e.message);
     if (e === "COUNTRY MATCHING ERROR")
       return res.status(500).send({
-        matchErr: "COUNTRY MATCHING ERROR",
+        matchErr: "COUNTRY MATCHING ERROR"
       });
     res.send(e.message);
   }

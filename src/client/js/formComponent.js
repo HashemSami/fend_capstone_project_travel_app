@@ -1,10 +1,4 @@
-import {
-  selectRegion,
-  selectCountry,
-  printCountries,
-  selectCity,
-  printCities,
-} from "./locationSelector";
+import { selectRegion, selectCountry, printCountries, selectCity } from "./locationSelector";
 import { updateStore } from "../index";
 import { getDateString } from "./helperFunctions";
 import { countriesData } from "./locationSelector/countriesData";
@@ -36,24 +30,14 @@ const formComponent = (selectedRegion, selectedCountry, selectedCity, note) => {
           </select>`
               : ""
           }
-          ${
-            selectedCountry &&
-            selectedRegion &&
-            selectedCity !== selectedCountry
-              ? `<input required id="city" name="city" value="${
-                  selectedCity ? selectedCity : ""
-                }" placeholder="Enter city name">`
-              : ""
-          }
+          ${selectedCountry && selectedRegion && selectedCity !== selectedCountry ? `<input required id="city" name="city" value="${selectedCity ? selectedCity : ""}" placeholder="Enter city name">` : ""}
         </div>
       </div>
       <div id="travel-date">
         <label for="date">Traveling date:</label>
         <input required min="${currentDate}" max="${futureDate}" type="date" value="" id="date" form="usrform" placeholder="date"/>
       </div>
-        <button id="submit-button" type="button" ${
-          selectedCountry && selectedRegion && selectedCity ? "" : "disabled"
-        } >Submit</button>
+        <button id="submit-button" type="button" ${selectedCountry && selectedRegion && selectedCity ? "" : "disabled"} >Submit</button>
     </form>
     <div id="note">${note}</div>
 </section>`;
@@ -64,38 +48,34 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
     const date = document.getElementById("date");
     const selectedDate = date.valueAsNumber;
 
-    const countryInfo = countriesData.counrties.find(
-      (country) => country.name === selectedCountry
-    );
+    const countryInfo = countriesData.counrties.find(country => country.name === selectedCountry);
 
     // countriesData.selectedCountryInfo = countryInfo[0];
 
-    console.log(typeof countryInfo);
-
     if (!selectedDate) {
       updateStore({
-        note: "Please select a date!",
+        note: "Please select a date!"
       });
       return;
     }
 
     updateStore({
       mainNote: "Updating...",
-      note: "Getting information...",
+      note: "Getting information..."
     });
 
     const res = await fetch("http://localhost:8081/post-data", {
       method: "POST", // or 'PUT'
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         region: selectedRegion,
         country: selectedCountry,
         city: selectedCity,
         date: selectedDate,
-        countryInfo: countryInfo,
-      }),
+        countryInfo: countryInfo
+      })
     });
 
     if (res.status == 500) throw await res.json();
@@ -104,15 +84,14 @@ const handleForm = async (selectedRegion, selectedCountry, selectedCity) => {
   } catch (e) {
     if (e.matchErr) {
       updateStore({
-        mainNote:
-          "Looks like the country you select doesn't match with the city you typed",
-        note: "No result",
+        mainNote: "Looks like the country you select doesn't match with the city you typed",
+        note: "No result"
       });
       return;
     }
     updateStore({
       mainNote: `Sorry, couldn't get your information, ${e.message}, please try again!`,
-      note: "No result",
+      note: "No result"
     });
     // console.log(e);
   }
@@ -126,8 +105,7 @@ const updateUI = async () => {
     updateStore({
       tripsInfo: data.data.reverse(),
       note: "",
-      mainNote:
-        "Your trip has been added, you can now add another trip to your list.",
+      mainNote: "Your trip has been added, you can now add another trip to your list."
     });
   } catch (e) {
     return `cannot get data: ${e.message}`;

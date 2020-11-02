@@ -1,4 +1,4 @@
-import { getDateString, calculateRemainingDays } from "helperFunctions";
+import { getDateString, calculateRemainingDays } from "../client/js/helperFunctions";
 
 describe("Testing helper functions", () => {
   it("should be able to output a date strting of: YYYY-M-D", () => {
