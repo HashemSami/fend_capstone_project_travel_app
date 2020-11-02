@@ -19,8 +19,9 @@ This is all going to be done in a Webpack environment, using an express server, 
 #### Features in the app:
 
 - Allow the user to add additional trips that will be displayed in a list sorted from the newest entry.
-- Incorporating [Weatherbit icons](https://www.weatherbit.io/api/codes) into forecast.
+- Incorporate [Weatherbit icons](https://www.weatherbit.io/api/codes) into forecast.
 - Pull in an image for the region from Pixabay API when the entered location brings up no results.
+- Integrate the [REST Countries API](https://restcountries.eu/) to pull in data for the country being visited.
 
 #### The goal of this project is to practice with:
 

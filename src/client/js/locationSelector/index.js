@@ -15,7 +15,7 @@ export const selectRegion = (selectedRegion) => {
 export const selectCountry = async (regions) => {
   try {
     const selectedRegion = regions.value;
-    console.log(selectedRegion);
+
     if (!selectedRegion) {
       updateStore({
         selectedRegion: null,

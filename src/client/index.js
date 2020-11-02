@@ -23,7 +23,6 @@ const root = document.getElementById("root");
 
 export const updateStore = (newState) => {
   const newStore = Object.assign(store, newState);
-  console.log(newStore);
   render(root, newStore);
 };
 
@@ -46,17 +45,14 @@ const addEventToDropdown = async (e) => {
   const { target } = e;
 
   if (target.matches("#region")) {
-    console.log("region");
     await selectCountry(target);
   }
 
   if (target.matches("#country")) {
-    console.log("country");
     selectCity(target);
   }
 
   if (target.matches("#city")) {
-    console.log("city");
     setCity(target);
   }
 };
@@ -65,7 +61,6 @@ const addEventToButton = (e, store) => {
   const { target } = e;
   const { selectedRegion, selectedCountry, selectedCity } = store;
   if (target.matches("#submit-button")) {
-    console.log("submit-button");
     handleForm(selectedRegion, selectedCountry, selectedCity);
   }
 };

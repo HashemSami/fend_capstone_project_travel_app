@@ -8,8 +8,11 @@ router.post("/post-data", async (req, res) => {
     const { region, country, city, date, countryInfo } = req.body;
 
     // API calls
+    // console.log(countryInfo);
     const geoNameRes = await geoName(city, countryInfo.alpha2Code);
-    if (geoNameRes === false) throw "COUNTRY MATCHING ERROR";
+    if (geoNameRes === "COUNTRY MATCHING ERROR") throw geoNameRes;
+    if (geoNameRes === "CITY NAME ERROR") throw geoNameRes;
+
     const [lng, lat] = geoNameRes;
     const [max_temp, min_temp, weather] = await weatherForecast(lng, lat, date);
     const [imageURL, tags] = await getImage(region, country, city);
@@ -29,7 +32,7 @@ router.post("/post-data", async (req, res) => {
       min_temp,
       weather,
       imageURL,
-      tags
+      tags,
     };
     dataBase.data.push(tripData);
     // console.log(dataBase);
@@ -39,7 +42,11 @@ router.post("/post-data", async (req, res) => {
     console.log(e.message);
     if (e === "COUNTRY MATCHING ERROR")
       return res.status(500).send({
-        matchErr: "COUNTRY MATCHING ERROR"
+        matchErr: "COUNTRY MATCHING ERROR",
+      });
+    if (e === "CITY NAME ERROR")
+      return res.status(500).send({
+        matchErr: "CITY NAME ERROR",
       });
     res.send(e.message);
   }

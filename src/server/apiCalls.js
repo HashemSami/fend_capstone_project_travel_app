@@ -9,13 +9,16 @@ module.exports.geoName = async (city, countryCode) => {
     const res = await fetch(apiurl);
 
     const data = await res.json();
-    // console.log(data.geonames[0]);
+
+    if (!data || data.geonames.length === 0) throw "CITY NAME ERROR";
+
     const info = data.geonames[0];
+
     if (info.countryCode !== countryCode) throw "COUNTRY MATCHING ERROR";
+
     return [info.lng, info.lat];
   } catch (e) {
     console.log("Geo Name error", e);
-    if (e === "COUNTRY MATCHING ERROR") return false;
     return e;
   }
 };
@@ -30,7 +33,7 @@ module.exports.weatherForecast = async (lng, lat, date) => {
 
     const data = await res.json();
 
-    // filtring data
+    // filtering data
     const dateString = getDateString(date);
     const selectedDateInfo = data.data.filter(
       (info) => info.datetime === dateString
