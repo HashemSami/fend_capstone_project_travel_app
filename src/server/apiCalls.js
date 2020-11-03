@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 module.exports.geoName = async (city, countryCode) => {
   try {
     const uriCity = encodeURI(city);
-    const apiKey = "hashemfay";
+    const apiKey = process.env.GEONAME_USERNAME;
     const apiurl = `http://api.geonames.org/searchJSON?q=${uriCity}&username=${apiKey}`;
 
     const res = await fetch(apiurl);
